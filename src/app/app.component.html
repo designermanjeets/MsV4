@@ -1,5 +1,5 @@
-<div class="container">
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+  <div class="container">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -15,9 +15,13 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['login']" [routerLinkActive]="['active']">Login</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" [hidden]="!myVar" [routerLink]="['dashboard']" [routerLinkActive]="['active']">Dashboard</a>
+            </li>
         </ul>
     </div>
-    </nav>
-</div>
+  </div>
+</nav>
+<alert></alert>
 <router-outlet></router-outlet>
 

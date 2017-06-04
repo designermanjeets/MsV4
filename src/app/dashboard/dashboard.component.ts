@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { AlertService, AuthenticationService } from '../_services/index';
@@ -11,20 +12,23 @@ import { AlertService, AuthenticationService } from '../_services/index';
 })
 
 export class DashboardComponent {
-    myVar: any;
+    isDashboard: any;
     currentUser: User;
     users: User[] = [];
  
     constructor(private userService: UserService,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router
+    ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    }
+     }
  
     ngOnInit() {
         this.loadAllUsers();
-        if(this.authenticationService.getAuthKey() || ''){ this.myVar = true; } 
-        else { this.myVar = false }
-
+        if(this.authenticationService.getAuthKey() || ''){ this.isDashboard = true; } 
+        else { this.isDashboard = false }
+        //console.log('dashboard.component.html '+this.isDashboard)
     }
  
     deleteUser(id: number) {
@@ -33,6 +37,11 @@ export class DashboardComponent {
  
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => { this.users = users; });
+    }
+
+    logout() {
+        this.authenticationService.logout();
+        this.router.navigate(['/login']);
     }
 
 }

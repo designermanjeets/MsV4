@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-    myVar: any;
+    isDashboard: any;
     subscription: Subscription;
     model: any = {};
     
@@ -25,8 +25,10 @@ export class AppComponent implements OnInit {
         ) { }
 
     ngOnInit(){
-       
-   }
+        if(this.authenticationService.getAuthKey() || ''){ this.isDashboard = true; } 
+        else { this.isDashboard = false }
+        //console.log('app.component.html '+this.isDashboard)
+      }
    
     
 }

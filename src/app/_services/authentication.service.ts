@@ -6,7 +6,7 @@ import { Subject } from "rxjs/Subject";
  
 @Injectable()
 export class AuthenticationService {
-    private myVar = false;
+    private isDashboard = false;
     constructor(private http: Http) { }
  
     login(username: string, password: string) {
@@ -17,8 +17,6 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    //this.myVar= true;
-                    //console.log('Login api' +  myVar)
                 }
             });
     }

@@ -9,7 +9,7 @@ import { AlertService, AuthenticationService } from '../_services/index';
 })
 
 export class LoginComponent implements OnInit {
-    myVar :any;
+    isDashboard :any;
     model: any = {};
     loading = false;
     returnUrl: string;
@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
         // reset login status
         // get return url from route parameters or default to '/dashboard'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-        this.authenticationService.logout();
     }
  
     login() {
@@ -33,10 +32,12 @@ export class LoginComponent implements OnInit {
         .subscribe(
             data => {
                 this.router.navigate([this.returnUrl]);
+                this.isDashboard = true
             },
             error => {
                 this.alertService.error(error);
                 this.loading = false;
+                this.isDashboard = false
             });
     }
 }

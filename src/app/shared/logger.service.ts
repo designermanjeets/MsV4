@@ -5,16 +5,18 @@ import { AuthenticationService } from '../_services/index';
 @Injectable()
 
 export class LoggerService {
-    private myVar = false;
+    private isDashboard = false;
  
     constructor(private router: Router, private authenticationService: AuthenticationService) {
         // clear alert message on route change
         router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
                 if (this.authenticationService.getAuthKey() || '') {
-                     console.log(this.authenticationService.getAuthKey());
+                     this.isDashboard = true;
+                     console.log('isDashboard :: ' +this.isDashboard);
                 } else {
-                     console.log(this.authenticationService.getAuthKey());
+                     this.isDashboard = false;
+                     console.log('isDashboard :: ' +this.isDashboard);
                 }
             }
         });

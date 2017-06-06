@@ -26,9 +26,6 @@ export class DashboardComponent {
  
     ngOnInit() {
         this.loadAllUsers();
-        if(this.authenticationService.getAuthKey() || ''){ this.isDashboard = true; } 
-        else { this.isDashboard = false }
-        //console.log('dashboard.component.html '+this.isDashboard)
     }
  
     deleteUser(id: number) {

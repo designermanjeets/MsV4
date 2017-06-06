@@ -1,12 +1,29 @@
-<div class="col-md-6 col-md-offset-3">
-    <h1>Hi {{currentUser.firstName}}!</h1>
-    <p>You're logged in with Angular 2!!</p>
-    <h3>All registered users:</h3>
-    <ul>
-        <li *ngFor="let user of users">
-            {{user.username}} ({{user.firstName}} {{user.lastName}})
-            - <a (click)="deleteUser(user.id)">Delete</a>
-        </li>
-    </ul>
-    <button class="btn btn-primary" (click)="logout()" >Logout</button>
+<section class="container mt-3 pt-3">
+    <div class="row">
+    <div class="col-lg-12">
+    <h1>Welcome {{currentUser.firstName}}</h1>
+    <h3 class="my-3 py-3">All registered users:</h3>
+    <table class="table table-bordered">
+    <thead class="thead-default">
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.username}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td><a (click)="deleteUser(user.id)">Delete</a></td>
+        </tr>
+    </tbody>
+    </table>
+    <button class="btn btn-primary my-3 py-3" (click)="logout()" >Logout</button>
 </div>
+</div>
+</section>

@@ -22,6 +22,9 @@ export class DashboardComponent {
     private router: Router
     ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(this.currentUser){ 
+            this.isDashboard=true 
+        }
      }
  
     ngOnInit() {

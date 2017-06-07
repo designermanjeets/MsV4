@@ -8,9 +8,8 @@ import { Subject } from "rxjs/Subject";
 export class AuthenticationService {
     public isDashboard = new Subject<boolean>();
     constructor(private http: Http) {
-        let onRefreshUser =  localStorage.getItem('currentUser');
-        if(onRefreshUser){
-            this.isDashboard.next(true);
+        if(localStorage.getItem('currentUser')){ 
+            this.isDashboard.next(true) 
         }
      }
  

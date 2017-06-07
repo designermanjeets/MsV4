@@ -1,0 +1,43 @@
+<section class="container mt-3 pt-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Blog</h1>
+        </div>
+        <div class="col-lg-12 mt-3 pt-3" [hidden]="isPosting">
+            <p>There is no post yet, create one.</p>
+            <button type="button" class="btn btn-primary" (click)="isPosting=true">Create Post</button>
+        </div>
+    </div>
+    <div class="row mt-3 pt-3" [hidden]="!isPosting">
+        <div class="col-lg-12">
+            <form name="form" (ngSubmit)="postSubmit()" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="posttitle">Post title</label>
+                    <input type="email" class="form-control" id="posttitle" aria-describedby="posttitleHelp" placeholder="Enter Title" name="postitle" [(ngModel)]="blog.postitle" #postitle="ngModel" required >
+                    <small id="posttitleHelp" class="form-text text-muted">We'll never share your details with anyone else.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="postarea">Post</label>
+                    <textarea class="form-control" id="postarea" rows="3" name="postitle" [(ngModel)]="blog.postarea" #postarea="ngModel" required ></textarea>
+                </div>
+                <button type="button" class="btn btn-link" (click)="isPosting=false;">Cancel</button>
+                <button type="submit" class="btn btn-primary" (click)="postListings=true;">Publish</button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3 pt-3" [hidden]="!postListings">
+        <div class="col-lg-12">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{blog.postitle}}</h5>
+                    <small>{{blog.postitle}}</small>
+                    </div>
+                    <p class="mb-1">{{blog.postarea}}</p>
+                    <small>{{blog.postitle}}</small>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

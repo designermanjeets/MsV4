@@ -18,10 +18,10 @@ export class AppComponent {
     isDashboard :any;
     model: any = {};
     
-    constructor(
-          private authenticationService: AuthenticationService
-        ) {
-          //this.authenticationService.isDashboard.subscribe((isDashboard => this.isDashboard=isDashboard))
+    constructor( private authenticationService: AuthenticationService) {
+        if(localStorage.getItem('currentUser')){ 
+          this.isDashboard=true 
+        }
     }
     ngOnInit(){
          this.authenticationService.isDashboard.subscribe((isDashboard => this.isDashboard=isDashboard))

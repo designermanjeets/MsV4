@@ -19,6 +19,7 @@ import { LoggerService } from '../app/shared/logger.service';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
+import { BlogComponent } from './blog/blog.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
@@ -31,6 +32,7 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     HomeComponent,
     AboutComponent,
     LoginComponent,
+    BlogComponent,
     routedComponents,
     RegisterComponent,
     DashboardComponent

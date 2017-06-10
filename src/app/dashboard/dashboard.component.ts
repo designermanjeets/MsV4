@@ -14,7 +14,7 @@ import { AlertService, AuthenticationService } from '../_services/index';
 export class DashboardComponent {
     isDashboard: any;
     currentUser: User;
-    users: User[] = [];
+    users: any = [];
  
     constructor(private userService: UserService,
     private authenticationService: AuthenticationService,
@@ -35,8 +35,11 @@ export class DashboardComponent {
         this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
     }
  
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
+    private loadAllUsers(): void  {
+        this.userService.getAll().subscribe(users => { 
+            this.users =  Array.of(users); 
+            console.log(this.users);
+        });
     }
 
     logout() {

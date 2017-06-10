@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 var mongoose = require('mongoose');
 var app = express();
-app.use(express.static('dist'))
+app.use(express.static('dist'));
 
 // Use native Node promises
 mongoose.Promise = global.Promise;
@@ -24,7 +24,7 @@ var users=mongoose.model('blogusers',blogusers);
 
 /* GET api listing. */
  router.get('/blogusers', (req, res) => {
-		users.findOne({"username":"kato"},function(err, users) {
+		users.findOne({"username":"manjeet"},function(err, users) {
 			if (err){ 
 				return console.error(err);
 			}		
@@ -32,7 +32,9 @@ var users=mongoose.model('blogusers',blogusers);
 				res.json(users);
 			}
 		});
- });
 
-//module.exports = mongoose.model('blogusers', usernames); 
+ }); 
+ 
+ 
+module.exports = mongoose.model('blogusers', blogusers); 
 module.exports = router;

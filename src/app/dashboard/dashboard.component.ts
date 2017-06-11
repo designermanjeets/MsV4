@@ -31,14 +31,26 @@ export class DashboardComponent {
         this.loadAllUsers();
     }
  
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
+    deleteUser(_id: number) {
+        this.userService.delete(_id)
+        .subscribe(
+            data => {
+                //this.users = data;
+                this.loadAllUsers();
+            },
+            error => {
+                console.log(error);
+        });
     }
  
     private loadAllUsers(): void  {
-        this.userService.getAll().subscribe(users => { 
-            this.users =  Array.of(users); 
+        this.userService.getAll().subscribe(
+        data => {
+            this.users = data;
             console.log(this.users);
+        },
+        error => {
+            console.log(error);
         });
     }
 

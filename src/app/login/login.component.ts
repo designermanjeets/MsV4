@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { AlertService, AuthenticationService, UserService } from '../_services/index';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     moduleId: module.id,
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
-    users: any = [];
+    users: any;
  
     constructor(
         private route: ActivatedRoute,
@@ -25,8 +26,9 @@ export class LoginComponent implements OnInit {
  
     ngOnInit() {
         // get return url from route parameters or default to '/dashboard'
+        localStorage.getItem('currentUser');
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-        this.loadAllUsers();
+        //this.loadAllUsers();
 
 
     }
@@ -36,8 +38,15 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
         .subscribe(
             data => {
-                console.log(this.model.username);
-                //this.router.navigate([this.returnUrl]);
+                //console.log(data.status);
+                if(data.status=="msv4-accepted") {
+                    //localStorage.setItem('currentUser', JSON.stringify(data.username));
+                    this.router.navigate([this.returnUrl]);
+                }
+                if (data.status=="msv4-rejected"){
+                    this.alertService.error("Tusi fuddu ho");
+                    this.loading = false;
+                }
             },
             error => {
                 this.alertService.error(error);
@@ -48,10 +57,15 @@ export class LoginComponent implements OnInit {
         // Retrieve posts from the API
         //this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
     }
+
     private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { 
-            this.users = users;
-            console.log(this.users);
-         });
+        this.userService.getAll()
+        .subscribe(
+            data => {
+                console.log(data);
+            },
+            error => {
+                console.log(error);
+            });
     }
 }

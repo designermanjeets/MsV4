@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 
 // connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/mscreativepixel_db')
-  .then(() =>  console.log('connection succesful :: mongodb_mscreativepixel_db'))
+  .then(() =>  console.log('connection successful :: mongodb_mscreativepixel_db'))
   .catch((err) => console.error(err));
 var db = mongoose.connection;
  
@@ -22,19 +22,52 @@ var blogusers = new mongoose.Schema({
 // Create a model based on the schema
 var users=mongoose.model('blogusers',blogusers);
 
-/* GET api listing. */
- router.get('/blogusers', (req, res) => {
-		users.findOne({"username":"manjeet"},function(err, users) {
+
+ // handler for the /user/:id path, which renders a special page
+router.post('/blogusers', function (req, res, next) {
+  users.findOne({username:req.body.username, password:req.body.password},function(err, users) {
+    var userObj = { "status": "", "body":"" };
 			if (err){ 
-				return console.error(err);
-			}		
-			else {
-				res.json(users);
-			}
+        res.json(userObj) 
+      }
+      if(users != null){
+        if(users.username && users.password) {
+          userObj.status = "msv4-accepted";
+          userObj.body = req.body;
+          res.json(userObj);
+        }
+      } else {
+          userObj.status = "msv4-rejected";
+          userObj.body = req.body;
+          res.json(userObj);
+      }
 		});
 
- }); 
+});
+
+router.get('/blogusers', function (req, res, next) {
+  users.find(function(err, users) {
+			if (err){ 
+        res.json(err) 
+      }
+      else {
+        res.json(users)
+      }
+		});
+
+});
+
+router.delete('/blogusers:_id', function (req, res, next) {
+  users.remove({ _id: req.params._id }, function(err, users) {
+      if (err)
+        res.send(err); 
+      else {
+        res.send({ message: ' Successfully deleted' });
+      }
+    });
+
+});
+
  
- 
-module.exports = mongoose.model('blogusers', blogusers); 
+module.exports = users; 
 module.exports = router;

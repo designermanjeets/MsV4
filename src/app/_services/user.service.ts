@@ -7,9 +7,9 @@ import { User } from '../_models/index';
 export class UserService {
     constructor(private http: Http) { }
  
-    getAll() {
-        return this.http.get('/blogusers').map((response: Response) => response.json());
-    }
+    // getAll() {
+    //     return this.http.get('/blogusers').map((response: Response) => response.json());
+    // }
  
     getById(id: number) {
         return this.http.get('/blogusers' + id).map((response: Response) => response.json());
@@ -23,18 +23,17 @@ export class UserService {
         return this.http.put('/blogusers' + user.id, user).map((response: Response) => response.json());
     }
  
-    delete(id: number) {
-        return this.http.delete('/blogusers' + id).map((response: Response) => response.json());
+    delete(_id: number) {
+        return this.http.delete('/blogusers' + _id).map((response: Response) => {
+            return response.json()
+        });
     }
 
-    // login(username: string, password: string) {
-    //     return this.http.get('/blogusers').map((response: Response) => {
-    //         response.json();
-    //         let user = response.json();
-    //         localStorage.setItem('currentUser', JSON.stringify(user));
-    //         //this.isDashboard.next(true);
-    //     });
-    // }
+    getAll() {
+        return this.http.get('/blogusers').map((response: Response) => {
+            return response.json();
+        });
+    }
  
     // private helper methods
  

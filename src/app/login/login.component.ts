@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
             data => {
                 //console.log(data.status);
                 if(data.status=="msv4-accepted") {
-                    //localStorage.setItem('currentUser', JSON.stringify(data.username));
+                    localStorage.setItem('currentUser', JSON.stringify(data.username));
                     this.router.navigate([this.returnUrl]);
                 }
                 if (data.status=="msv4-rejected"){
@@ -52,10 +52,6 @@ export class LoginComponent implements OnInit {
                 this.alertService.error(error);
                 this.loading = false;
             });
-        
-
-        // Retrieve posts from the API
-        //this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
     }
 
     private loadAllUsers() {

@@ -20,9 +20,7 @@ var blogusers = new mongoose.Schema({
 });
 
 // Create a model based on the schema
-var users=mongoose.model('blogusers',blogusers);
-
-
+var users = mongoose.model('blogusers',blogusers);
  // handler for the /user/:id path, which renders a special page
 router.post('/blogusers', function (req, res, next) {
   users.findOne({username:req.body.username, password:req.body.password},function(err, users) {
@@ -66,6 +64,18 @@ router.delete('/blogusers:_id', function (req, res, next) {
       }
     });
 
+});
+
+router.post('/blogusers/user', function (req, res, next) {
+  var blogusersqeqwe = new users(req.body);      // create a new instance of the users model
+  var userObj = { "status": "", "body":"" };
+  blogusersqeqwe.save(function(err, users) {
+      if (err)  
+        res.send(err); 
+      else {
+        res.json(req.body);
+      }
+    });
 });
 
  

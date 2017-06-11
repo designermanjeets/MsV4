@@ -6,17 +6,17 @@ import { User } from '../_models/index';
 @Injectable()
 export class UserService {
     constructor(private http: Http) { }
- 
-    // getAll() {
-    //     return this.http.get('/blogusers').map((response: Response) => response.json());
-    // }
- 
+    
     getById(id: number) {
         return this.http.get('/blogusers' + id).map((response: Response) => response.json());
     }
  
     createUsers(user: User) {
-        return this.http.post('/blogusers', user).map((response: Response) => response.json());
+         let headers = new Headers();
+        headers.append('Content-Type', 'application/json'); // Set JSON header so that data is parsed by bodyParser on the backend
+        return this.http.post('/blogusers/user', JSON.stringify(user), { headers: headers }).map((response: Response) => {
+            return response.json()
+        });
     }
  
     update(user: User) {

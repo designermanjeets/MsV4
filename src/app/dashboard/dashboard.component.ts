@@ -13,7 +13,7 @@ import { AlertService, AuthenticationService } from '../_services/index';
 
 export class DashboardComponent {
     isDashboard: any;
-    currentUser: User;
+    currentUser: any;
     users: any = [];
  
     constructor(private userService: UserService,
@@ -21,7 +21,7 @@ export class DashboardComponent {
     private route: ActivatedRoute,
     private router: Router
     ) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.currentUser = localStorage.getItem('currentUser');
         if(this.currentUser){ 
             this.isDashboard=true 
         }

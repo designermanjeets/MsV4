@@ -10,6 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class BlogComponent { 
     blog:any = {};
     blogpost =[];
+    isPosting:any;
+    postListings:any;
 
     constructor(){}
     

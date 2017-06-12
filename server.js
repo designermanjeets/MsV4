@@ -27,6 +27,9 @@ app.use('/', users);
 //app.use('/dashboard', dashboard);
 
 //app.use('/api/v1/', msv4);
+app.get('/*', function (req, res){
+    res.render('index.html');
+});
  
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

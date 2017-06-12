@@ -20,7 +20,7 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
 
     // otherwise redirect to home
-    { path: '**', redirectTo: 'login' }
+    { path: '**', redirectTo: 'home' }
 ];
 
 

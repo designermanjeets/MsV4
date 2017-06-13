@@ -21,7 +21,7 @@ export class AuthenticationService {
         };
         let headers = new Headers();
         headers.append('Content-Type', 'application/json'); // Set JSON header so that data is parsed by bodyParser on the backend
-        return this.http.post('/blogusers',JSON.stringify({ username: username, password: password }), { headers: headers }).map((response: Response) => {
+        return this.http.post('https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/blogusers?apiKey=llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k',JSON.stringify({ username: username, password: password }), { headers: headers }).map((response: Response) => {
             response.json();            
             let user = response.json();
             localStorage.setItem('currentUser', JSON.stringify(user));

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppRoutingModule, routedComponents } from '../app-routing.module';
-import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { AlertService, AuthenticationService } from '../_services/index';
 
@@ -47,7 +46,6 @@ export class DashboardComponent {
         this.userService.getAll().subscribe(
         data => {
             this.users = data;
-            console.log(this.users);
         },
         error => {
             console.log(error);

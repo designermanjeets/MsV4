@@ -9,7 +9,7 @@ var MongoClient = require('mongodb').MongoClient;
 mongoose.Promise = global.Promise;
 
 // connect to MongoDB
-mongoose.connect('mongodb://msadmin:mspassword@ds121222.mlab.com:21222/mscreativepixel_db')
+mongoose.connect('mongodb://localhost/mscreativepixel_db')
   .then(() =>  console.log('connection successful :: mongodb_mscreativepixel_db'))
   .catch((err) => console.error(err));
 var db = mongoose.connection;
@@ -17,15 +17,21 @@ var db = mongoose.connection;
  // Create a schema
 var blogusers = new mongoose.Schema({
   username: String,
-  password: String
+  password: String,
+  articles: [
+    {
+      postitle:  String,
+      postdate: {type: Date, default: Date.now},
+      author: {type: String },
+      article: String
+    }
+  ]
 });
 
 // Create a model based on the schema
 var users = mongoose.model('blogusers',blogusers);
- // handler for the /user/:id path, which renders a special page
- var bloguserapi = 'https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/blogusers?apiKey=llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k';
 
-router.post('https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/blogusers?apiKey=llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k', function (req, res, next) {
+router.post('/blogusers', function (req, res, next) {
   users.findOne({username:req.body.username, password:req.body.password},function(err, users) {
     var userObj = { "status": "", "body":"" };
 			if (err){ 
@@ -46,7 +52,7 @@ router.post('https://api.mlab.com/api/1/databases/mscreativepixel_db/collections
 
 });
 
-router.get('https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/blogusers?apiKey=llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k', function (req, res, next) {
+router.get('/blogusers', function (req, res, next) {
   users.find(function(err, users) {
 			if (err){ 
         res.json(err) 
@@ -58,7 +64,7 @@ router.get('https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/
 
 });
 
-router.delete('https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/blogusers:_id?apiKey=llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k', function (req, res, next) {
+router.delete('/blogusers:_id', function (req, res, next) {
   users.remove({ _id: req.params._id }, function(err, users) {
       if (err)
         res.send(err); 
@@ -69,16 +75,50 @@ router.delete('https://api.mlab.com/api/1/databases/mscreativepixel_db/collectio
 
 });
 
-router.post('https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/blogusers/user?apiKey=llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k', function (req, res, next) {
-  var blogusersqeqwe = new users(req.body);      // create a new instance of the users model
+router.post('/blogusers/user', function (req, res, next) {
+  var blogusersnew = new users(req.body);      // create a new instance of the users model
   var userObj = { "status": "", "body":"" };
-  blogusersqeqwe.save(function(err, users) {
+  blogusersnew.save(function(err, blogusersnew) {
       if (err)  
         res.send(err); 
       else {
-        res.json(req.body);
+        res.json(blogusersnew);
       }
     });
+});
+
+router.post('/thread', function(req, res, next){
+  var newthread = new users();
+  users.findOneAndUpdate({"username":req.body.author},{
+      $push: {
+        articles:  {
+          postitle: req.body.postitle, 
+          postdate: req.body.postdate, 
+          author: req.body.author,
+          article: req.body.article
+        }
+      }
+    },
+    { upsert: true } ,
+    function(err, newthread) {
+      if (err)  
+        res.send(err); 
+      else {
+        res.json(newthread);
+      }
+  });
+});
+
+router.post('/thread/getposts', function (req, res, next) {
+  users.find({"username":req.body.username}, function(err, users) {
+			if (err){ 
+        res.json(err) 
+      }
+      else {
+        res.json(users)
+      }
+		});
+
 });
 
  

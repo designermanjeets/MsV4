@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     returnUrl: string;
     users: any;
+    currentUser:any;
  
     constructor(
         private route: ActivatedRoute,
@@ -28,7 +29,6 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/dashboard'
         localStorage.getItem('currentUser');
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-        //this.loadAllUsers();
 
 
     }
@@ -38,9 +38,8 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
         .subscribe(
             data => {
-                //console.log(data.status);
                 if(data.status=="msv4-accepted") {
-                    localStorage.setItem('currentUser', JSON.stringify(data.username));
+                    localStorage.setItem('currentUser', data.body.username);
                     this.router.navigate([this.returnUrl]);
                 }
                 if (data.status=="msv4-rejected"){

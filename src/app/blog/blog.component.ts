@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AppRoutingModule, routedComponents } from '../app-routing.module';
+import { AlertService, AuthenticationService, UserService, BlogService } from '../_services/index';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     moduleId: module.id,
@@ -7,16 +11,50 @@ import { Router, ActivatedRoute } from '@angular/router';
     styleUrls: ['./blog.component.css']
 })
 
-export class BlogComponent { 
+export class BlogComponent implements OnInit { 
     blog:any = {};
-    blogpost =[];
+    loading = false;
     isPosting:any;
     postListings:any;
+    bloglisting: any = [];
 
-    constructor(){}
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private alertService: AlertService,
+        private BlogService: BlogService,
+        private userService: UserService,
+        private http: Http){
+        }
     
+    ngOnInit() {
+        this.loadAllBlogPosts()
+    }
+
     postSubmit(){
-        this.blogpost.push(this.blog.postitle);
-        console.log(this.blogpost);
+        this.BlogService.postSubmit(this.blog)
+        .subscribe(
+            data => {
+                this.postListings = true;
+                this.isPosting = false;
+                //this.isPublish = false;
+                this.bloglisting.push(data);
+                this.loadAllBlogPosts();
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
+    }
+
+    private loadAllBlogPosts(): void  {
+        this.BlogService.loadAllBlogPosts()
+        .subscribe(
+            data => {
+                this.bloglisting = data[0].articles;
+            },
+            error => {
+                console.log(error);
+            });
     }
 }

@@ -5,7 +5,6 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // used to create fake backend
-import { fakeBackendProvider } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 
@@ -13,8 +12,7 @@ import { AppComponent } from './app.component';
 
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService } from './_services/index';
-import { LoggerService } from '../app/shared/logger.service';
+import { AlertService, AuthenticationService, UserService, BlogService } from './_services/index';
 
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -47,10 +45,8 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     AuthGuard,
     AlertService,
     AuthenticationService,
-    LoggerService,
     UserService,
-    // providers used to create fake backend
-    fakeBackendProvider,
+    BlogService,
     MockBackend,
     BaseRequestOptions
 

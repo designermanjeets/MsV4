@@ -4,10 +4,8 @@ var mongoose = require('mongoose');
 //var logger = require('morgan');
 //var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
- 
-var index = require('./server/routes/api');
+
 var users = require('./server/modals/users');
-//var dashboard = require('./server/modals/dashboard');
  
 var app = express();
  
@@ -24,9 +22,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'dist')));
  
 app.use('/', users);
-//app.use('/dashboard', dashboard);
 
-//app.use('/api/v1/', msv4);
 app.get('/*', function (req, res){
     res.render('index.html');
 });

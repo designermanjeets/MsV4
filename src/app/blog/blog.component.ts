@@ -16,6 +16,7 @@ export class BlogComponent implements OnInit {
     loading = false;
     isPosting:any;
     postListings:any;
+    isPostingForm:any;
     bloglisting: any = [];
 
     constructor(
@@ -40,6 +41,8 @@ export class BlogComponent implements OnInit {
                 //this.isPublish = false;
                 this.bloglisting.push(data);
                 this.loadAllBlogPosts();
+                this.blog.postitle= null
+                this.blog.article= ' '
             },
             error => {
                 this.alertService.error(error);

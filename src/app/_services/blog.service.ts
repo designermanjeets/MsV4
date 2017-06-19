@@ -44,4 +44,31 @@ export class BlogService {
             return response.json();
         });
     }
+    
+
+    postComment(comment){
+        let headers = new Headers();
+        var body = {
+            author:   localStorage.getItem('currentUser'),
+            comments:  comment.poscomment
+        };
+        headers.append('Content-Type', 'application/json'); // Set JSON header so that data is parsed by bodyParser on the backend
+        return this.http.post('/comment', body, { headers: headers }).map((response: Response) => {
+            response.json();            
+            let commentpost = response.json();
+            this.isDashboard.next(true);
+            return commentpost;
+        });
+    }
+    
+    loadAllComments() {
+        let headers = new Headers();
+        var body = { 
+            username: localStorage.getItem('currentUser')
+        };
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('/comment/getcomments', body, { headers: headers }).map((response: Response) => {
+            return response.json();
+        });
+    }
 }

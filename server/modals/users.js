@@ -23,7 +23,15 @@ var blogusers = new mongoose.Schema({
       postitle:  String,
       postdate: {type: Date, default: Date.now},
       author: {type: String },
-      article: String
+      article: String,
+      comments: String
+    }
+  ],
+  comments: [
+    {
+      comment:String,
+      postdate: {type: Date, default: Date.now},
+      author: {type: String }
     }
   ]
 });
@@ -111,6 +119,38 @@ router.post('/thread', function(req, res, next){
 
 router.post('/thread/getposts', function (req, res, next) {
   users.find({"username":req.body.username}, function(err, users) {
+			if (err){ 
+        res.json(err) 
+      }
+      else {
+        res.json(users)
+      }
+		});
+
+});
+
+router.post('/comment', function(req, res, next){
+  users.findOneAndUpdate({"username":req.body.author},{
+      $push: { 
+        comments : {
+           comment: req.body.comments,
+           postdate: req.body.postdate,
+           author: req.body.author,
+        }
+      }
+    },
+    { upsert: true } ,
+    function(err, users) {
+      if (err)  
+        res.send(err); 
+      else {
+        res.json(users);
+      }
+  });
+});
+
+router.post('/comment/getcomments', function (req, res, next) {
+  users.find(function(err, users) {
 			if (err){ 
         res.json(err) 
       }

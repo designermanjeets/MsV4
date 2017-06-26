@@ -18,8 +18,10 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { BlogComponent } from './blog/blog.component';
+import { BlogDetailComponent } from './blog/blog.detail.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TruncatePipe }   from './shared/truncate';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 
 
@@ -31,15 +33,17 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     AboutComponent,
     LoginComponent,
     BlogComponent,
+    BlogDetailComponent,
     routedComponents,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [
     AuthGuard,
@@ -50,6 +54,9 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     MockBackend,
     BaseRequestOptions
 
+  ],
+  exports: [
+    
   ],  
   bootstrap: [AppComponent]
 })

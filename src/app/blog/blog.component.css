@@ -164,8 +164,8 @@ button { cursor: pointer; }
 }
 
 .comment-box .comment-head i {
-	float: right;
-	margin-left: 14px;
+	float: left;
+	margin-right: 14px;
 	position: relative;
 	top: 2px;
 	color: #A6A6A6;
@@ -181,7 +181,7 @@ button { cursor: pointer; }
 
 .comment-box .comment-name {
 	color: #283035;
-	font-size: 14px;
+	font-size: 15px;
 	font-weight: 700;
 	float: left;
 	margin-right: 10px;
@@ -194,9 +194,9 @@ button { cursor: pointer; }
 .comment-box .comment-head span {
 	float: left;
 	color: #999;
-	font-size: 13px;
+	font-size: 14px;
 	position: relative;
-	top: 1px;
+	top: -2px;
 }
 
 .comment-box .comment-content {
@@ -207,6 +207,7 @@ button { cursor: pointer; }
 	-webkit-border-radius: 0 0 4px 4px;
 	-moz-border-radius: 0 0 4px 4px;
 	border-radius: 0 0 4px 4px;
+	min-height: 100px;
 }
 
 .comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #03658c;}
@@ -240,3 +241,6 @@ button { cursor: pointer; }
 		width: 320px;
 	}
 }
+.badge-pill { margin: 3px 0 0 10px; }
+.card { margin: 25px 0; }
+.bordrtop { border-top: 1px solid #E5E5E5 !important; }

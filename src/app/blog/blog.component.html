@@ -26,113 +26,20 @@
             </form>
         </div>
     </div>
-    <div class="row my-3 pt-3" *ngFor="let blogs of bloglisting">
-        <div class="col-lg-12">
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{blogs.postitle}}</h5>
-                        <small>{{blogs.postdate}} by {{blogs.author}}</small>
-                    </div>
-                    <p class="mb-1 mt-3">{{blogs.article}}</p>
-                </a>
-            </div>
+    <!--Blog Posts-->
+    <div class="card" *ngFor="let blogs of bloglisting">
+        <div class="card-header d-flex justify-content-start">
+            Tags: <span class="badge badge-pill badge-default">msv4</span>
+            <span class="ml-auto">By  {{blogs.author}} | {{blogs.postdate | date:'medium' }} </span>
+        </div>
+        <div class="card-block">
+            <h4 class="card-title"><a href="javascript://(void)" (click)="blogDetail(blogs._id)">{{blogs.postitle}}</a></h4>
+            <p class="card-text">{{blogs.article | limitTo : 375 }}</p>
+            <a href="javascript://(void)" (click)="blogDetail(blogs._id)" class="btn btn-primary">Read More...</a>
         </div>
     </div>
-    <div class="row my-3 pt-3">
-        <div class="col-lg-12">
-            <form name="form" (ngSubmit)="postComment()" #f="ngForm" novalidate>
-				<div class="form-group">
-					<label for="exampleTextarea">Post your comments</label>
-					<textarea class="form-control" id="exampleTextarea" aria-describedby="helptextarea" rows="3" placeholder="Post your comments" name="poscomment" [(ngModel)]="comment.poscomment" #poscomment="ngModel" required></textarea>
-					<small id="helptextarea" class="form-text text-muted">We'll never share your details with anyone else.</small>
-				</div>
-				<button type="submit" class="btn btn-primary">Comment</button>
-			</form>
-        </div>
-    </div>
+  <!--./Blog Posts-->
+
+
+
 </section>
-
-<div class="container-fluid commentswrap">
-	<div class="row">
-	<!-- Contenedor Principal -->
-    <div class="comments-container">
-		<h1>Comments <a href="#">MsV4</a></h1>
-		<ul id="comments-list" class="comments-list">
-			<li style="display:none;">
-				<div class="comment-main-level">
-					<!-- Avatar -->
-					<div class="comment-avatar"><img src="../../assets/img/avatar_2_zps7de12f8b.jpg" alt=""></div>
-					<!-- Contenedor del Comentario -->
-					<div class="comment-box">
-						<div class="comment-head">
-							<h6 class="comment-name by-author"><a href="#">Agustin Ortiz</a></h6>
-							<span>hace 20 minutos</span>
-							<i class="fa fa-reply"></i>
-							<i class="fa fa-heart"></i>
-						</div>
-						<div class="comment-content">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-						</div>
-					</div>
-				</div>
-				<!-- Respuestas de los comentarios -->
-				<ul class="comments-list reply-list">
-					<li>
-						<!-- Avatar -->
-						<div class="comment-avatar"><img src="../../assets/img/avatar_2_zps7de12f8b.jpg" alt=""></div>
-						<!-- Contenedor del Comentario -->
-						<div class="comment-box">
-							<div class="comment-head">
-								<h6 class="comment-name"><a href="#">Lorena Rojero</a></h6>
-								<span>hace 10 minutos</span>
-								<i class="fa fa-reply"></i>
-								<i class="fa fa-heart"></i>
-							</div>
-							<div class="comment-content">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-							</div>
-						</div>
-					</li>
-
-					<li>
-						<!-- Avatar -->
-						<div class="comment-avatar"><img src="../../assets/img/avatar_2_zps7de12f8b.jpg" alt=""></div>
-						<!-- Contenedor del Comentario -->
-						<div class="comment-box">
-							<div class="comment-head">
-								<h6 class="comment-name by-author"><a href="#">Agustin Ortiz</a></h6>
-								<span>hace 10 minutos</span>
-								<i class="fa fa-reply"></i>
-								<i class="fa fa-heart"></i>
-							</div>
-							<div class="comment-content">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-							</div>
-						</div>
-					</li>
-				</ul>
-			</li>
-
-			<li *ngFor="let comments of commentslisting">
-				<div class="comment-main-level">
-					<!-- Avatar -->
-					<div class="comment-avatar"><img src="../../assets/img/avatar_2_zps7de12f8b.jpg" alt=""></div>
-					<!-- Contenedor del Comentario -->
-					<div class="comment-box">
-						<div class="comment-head">
-							<h6 class="comment-name"><a href="#">by {{comments.author}}</a></h6>
-							<span>{{comments.postdate}}</span>
-							<i class="fa fa-reply"></i>
-							<i class="fa fa-heart"></i>
-						</div>
-						<div class="comment-content">
-							{{comments.comment}}
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
-	</div>
-</div>

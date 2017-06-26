@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { AlertService, AuthenticationService, UserService, BlogService } from '../_services/index';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
     moduleId: module.id,
@@ -18,7 +18,7 @@ export class BlogComponent implements OnInit {
     postListings:any;
     isPostingForm:any;
     bloglisting: any = [];
-    comment:any = {};
+    cmmntfield:any = {};
     commentslisting: any = [];
 
     constructor(
@@ -32,7 +32,6 @@ export class BlogComponent implements OnInit {
     
     ngOnInit() {
         this.loadAllBlogPosts();
-        this.loadAllComments();
     }
 
     postSubmit(){
@@ -57,37 +56,14 @@ export class BlogComponent implements OnInit {
         this.BlogService.loadAllBlogPosts()
         .subscribe(
             data => {
-                this.bloglisting = data[0].articles;
+                this.bloglisting = data;
             },
             error => {
                 console.log(error);
             });
     }
 
-
-    postComment(){
-        this.BlogService.postComment(this.comment)
-        .subscribe(
-            data => {
-                this.commentslisting.push(data);
-                this.loadAllComments();
-                this.comment.poscomment= ' '
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-            });
-    }
-
-    private loadAllComments(): void  {
-        this.BlogService.loadAllComments()
-        .subscribe(
-            data => {
-                this.commentslisting = data[0].comments;
-                console.log(this.commentslisting);
-            },
-            error => {
-                console.log(error);
-            });
+    blogDetail(_id:number){
+        this.router.navigate(['/blogdetail', _id]);
     }
 }

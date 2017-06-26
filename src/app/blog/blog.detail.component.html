@@ -1,0 +1,104 @@
+<section class="container mt-3 pt-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Blog Detail</h1>
+        </div>
+    </div>
+    <div class="row my-3 pt-3">
+        <div class="col-lg-12">
+			<!--Post Detail-->
+			<div class="jumbotron">
+				<h1 class="display-3">{{blogs.postitle}}</h1>
+				<p class="lead">By  {{blogs.author}} | {{blogs.postdate | date:'medium' }}</p>
+				<hr class="my-4">
+				<p>{{blogs.article}}</p>
+				<p class="lead mt-3 pt-3">
+					<a class="btn btn-primary btn-lg" href="javascript://void(0)" role="button">Speak your mind</a>
+				</p>
+			</div>
+			<!--./Post Detail-->
+
+
+        </div>
+    </div>
+    <div class="row my-3 pt-3">
+        <div class="col-lg-12">
+            <form name="form" (ngSubmit)="postComment(blogs._id)" #f="ngForm" novalidate>
+				<div class="form-group">
+					<label for="exampleTextarea">Post your comments</label>
+					<textarea class="form-control" id="exampleTextarea" aria-describedby="helptextarea" rows="3" placeholder="Post your comments" name="poscomment" [(ngModel)]="cmmntfield.poscomment" #poscomment="ngModel" required></textarea>
+					<small id="helptextarea" class="form-text text-muted">We'll never share your details with anyone else.</small>
+				</div>
+				<button type="submit" class="btn btn-primary">Comment</button>
+			</form>
+        </div>
+    </div>
+</section>
+
+<div class="container-fluid commentswrap">
+	<div class="row">
+	<!-- Contenedor Principal -->
+    <div class="comments-container">
+		<h1>Comments</h1>
+		<ul id="comments-list" class="comments-list">
+			<li *ngFor="let comments of commentslisting">
+				<div class="comment-main-level">
+					<!-- Avatar -->
+					<div class="comment-avatar"><img src="../../assets/img/avatar_2_zps7de12f8b.jpg" alt=""></div>
+					<!-- Contenedor del Comentario -->
+					<div class="comment-box">
+						<div class="comment-head">
+							<h6 class="comment-name"><a href="#">by {{comments.authors}}</a></h6>
+							<span>|&nbsp;&nbsp;{{comments.postdate | date:'medium' }}</span>
+						</div>
+						<div class="comment-content">
+							{{comments.comment}}
+							<!--Do Reply-->
+							<div class="row my-3 pt-3" [hidden]="!comments.doreply">
+								<div class="col-lg-12">
+									<form name="form" (ngSubmit)="postReply(comments._id)" #f="ngForm" novalidate>
+										<div class="form-group">
+											<label for="exampleTextarea2">Post your comments</label>
+											<textarea class="form-control" id="exampleTextarea2" aria-describedby="helptextarea2" rows="3" placeholder="Post your comments" name="poscommentrep" [(ngModel)]="cmmntfield.poscommentrep" #poscommentrep="ngModel" required></textarea>
+											<small id="helptextarea2" class="form-text text-muted">You may use HTML tags.</small>
+										</div>
+										<button type="submit" class="btn btn-primary">Reply</button>
+									</form>
+								</div>
+							</div>
+							<!--./Do Reply-->
+						</div>
+						<div class="comment-head bordrtop">
+							<a (click)="doreplyfun(comments)"><i class="material-icons">reply</i></a>
+							<i class="material-icons">thumb_up</i>
+						</div>
+					</div>
+				</div>
+				
+				<!--Reply Box-->
+				<ul class="comments-list reply-list">
+					<li *ngFor="let reply of replylisting">
+						<!-- Avatar -->
+						<div class="comment-avatar"><img src="../../assets/img/avatar_2_zps7de12f8b.jpg" alt=""></div>
+						<!-- Contenedor del Comentario -->
+						<div class="comment-box">
+							<div class="comment-head">
+								<h6 class="comment-name"><a href="#">by {{reply.authors}}</a></h6><!-- by-author || Conditional Class-->
+								<span>|&nbsp;&nbsp;{{reply.postdate | date:'medium' }}</span>
+							</div>
+							<div class="comment-content">
+								{{reply.reply}}
+							</div>
+							<div class="comment-head bordrtop">
+								<a (click)="doreplyfun(comments)"><i class="material-icons">reply</i></a>
+								<i class="material-icons">thumb_up</i>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<!--./Reply Box-->
+			</li>
+		</ul>
+	</div>
+	</div>
+</div>

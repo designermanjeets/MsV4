@@ -20,7 +20,7 @@ export class DashboardComponent {
     private route: ActivatedRoute,
     private router: Router
     ) {
-        this.currentUser = localStorage.getItem('currentUser');
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if(this.currentUser){ 
             this.isDashboard=true 
         }
@@ -34,7 +34,6 @@ export class DashboardComponent {
         this.userService.delete(_id)
         .subscribe(
             data => {
-                //this.users = data;
                 this.loadAllUsers();
             },
             error => {
@@ -44,8 +43,8 @@ export class DashboardComponent {
  
     private loadAllUsers(): void  {
         this.userService.getAll().subscribe(
-        data => {
-            this.users = data;
+        users => {
+            this.users = users;
         },
         error => {
             console.log(error);

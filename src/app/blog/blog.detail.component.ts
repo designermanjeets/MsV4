@@ -37,6 +37,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         private http: Http
     ){}
     
+    
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let _id = params['_id'];
@@ -53,8 +54,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         this.BlogService.postComment(this.cmmntfield, _id )
         .subscribe(
             data => {
-                let last_element = data.comments[data.comments.length - 1];
-                this.commentslisting.push(last_element);
+                let last_comment = data.comments[data.comments.length - 1];
+                this.commentslisting.push(last_comment);
                 this.cmmntfield.poscomment= ' '
                 this.loadAllComments(_id);
             },
@@ -81,31 +82,16 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         this.BlogService.postReply(this.cmmntfield, _id )
         .subscribe(
             data => {
-                function getDimensionsByFilter(id){ 
-                    return data.comments.filter(x => x._id === _id);
-                }
-                let test = getDimensionsByFilter(_id);
-                let last_element = test[0].replies[test[0].replies.length - 1];
-                this.replylisting.push(last_element);
+                this.cmmntfield.poscommentrep= ' '
+                this.loadAllComments(_id);
             },
             error => {
                 this.alertService.error(error);
                 this.loading = false;
             });
     }
-    
-    private loadAllReplies(_id:number): void  {
-        this.BlogService.loadAllReplies(_id)
-        .subscribe(
-            data => {
-                
-            },
-            error => {
-                console.log(error);
-            });
-    }
 
-    private loadAllComments(_id:number): void  {
+    loadAllComments(_id:number): void  {
         this.BlogService.loadAllComments(_id)
         .subscribe(
             data => {

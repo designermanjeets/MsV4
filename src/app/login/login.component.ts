@@ -26,11 +26,8 @@ export class LoginComponent implements OnInit {
         private http: Http) { }
  
     ngOnInit() {
-        // get return url from route parameters or default to '/dashboard'
-        localStorage.getItem('currentUser');
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-
-
+        // reset login status
+        this.authenticationService.logout();
     }
  
     login() {
@@ -38,11 +35,9 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
         .subscribe(
             data => {
-                if(data.status=="msv4-accepted") {
-                    localStorage.setItem('currentUser', data.body.username);
-                    this.router.navigate([this.returnUrl]);
-                }
-                if (data.status=="msv4-rejected"){
+                if(data ==true) {
+                    this.router.navigate(['/dashboard']);
+                } else {
                     this.alertService.error("Tusi fuddu ho");
                     this.loading = false;
                 }
@@ -50,17 +45,6 @@ export class LoginComponent implements OnInit {
             error => {
                 this.alertService.error(error);
                 this.loading = false;
-            });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll()
-        .subscribe(
-            data => {
-                console.log(data);
-            },
-            error => {
-                console.log(error);
             });
     }
 }

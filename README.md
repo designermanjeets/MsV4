@@ -27,9 +27,4 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-
-Below==>
-mLAB
-
-API KEY: llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k
-https://api.mlab.com/api/1/databases/mscreativepixel_db/collections/blogusers?apiKey=llVv4EjeMKIq2vUaO7SSd3Fb3sh3eg2k
+## Regards, Manjeet Singh, MscreativePixel

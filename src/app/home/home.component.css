@@ -1,0 +1,29 @@
+
+.card-deck { margin-bottom: 50px; }
+.card-deck img { max-width: 100%; }
+.card-deck a { color: #422d3f; text-decoration: none; }
+.bg-gray { background: #f2f2f2; }
+.bg-main { background: url(../../assets/img/work-bg.jpg) no-repeat center top; background-size: cover; }
+.mat-head { font-size: 100px; color: #e5373a; }
+.services .mat-head { font-size: 60px; }
+
+.purplesqr { height: 50px; }
+.purplesqr::after {
+    bottom: 0;
+    -webkit-transform: skewY(2deg);
+    transform: skewY(2deg);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-backface-visibility: hidden;
+    background: inherit;
+    content: '';
+    display: block;
+    height: 100%;
+    left: 0;
+    outline: 1px solid transparent;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    background: #230e2d;
+}
+.upgradewrap h5 { font-weight: normal; font-size: 17px; line-height: 1.5; padding: 15px 0; }

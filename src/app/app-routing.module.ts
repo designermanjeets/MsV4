@@ -15,6 +15,8 @@ import { AuthGuard } from './_guards/index';
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent },
+    { path: 'services', component: HomeComponent }, // For now HomeComponent
+    { path: 'work', component: HomeComponent }, // For now HomeComponent
     { path: 'login', component: LoginComponent },
     { path: 'blog', component: BlogComponent },
     { path: 'blogdetail/:_id', component: BlogDetailComponent },

@@ -1,1 +1,50 @@
+@import url(icon.css);
+
 /* You can add global styles to this file, and also import other style files */
+* { transition: all 0.4s ease; line-height: 1.4; }
+body, html { color: #422d3f; }
+button { cursor: pointer; }
+.navbar { box-shadow: 0 0 5px 5px #eee;  }
+.navbar .navbar-collapse { flex-direction: row-reverse; }
+.navbar .navbar-nav { width: 70%; }
+.navbar .btn-primary { padding: .7rem 2rem; color: #fff !important; margin-top: -3px; }
+
+.card:hover { box-shadow: 0 0 30px 10px #eee; transform: scale(1.05); }
+.bg-purple .card:hover { box-shadow: 0 0 30px 10px #69487e; transform: scale(1.05); }
+.card-img-overlay { background: rgba(0, 0, 0, .6); }
+
+.form-onpurple label { font-weight: bold; }
+.form-onpurple .form-control { background: #321e3c; box-shadow: none; padding: .8rem .75rem; outline: none; border:none; }
+.form-onpurple .form-control:focus, .form-onpurple .form-control:active { outline: none; border:none; }
+
+
+
+@media all and (min-width:768px) {
+    .navbar .navbar-nav li { margin-left: auto; margin-right: auto; }
+    .navbar .navbar-nav li:nth-last-child(1) { margin-right: 0; }
+    .navbar .navbar-collapse { transform: none !important; }
+}
+
+@media all and (max-width: 577px) {
+    .container { width: 100%; }
+}
+
+@media all and (max-width:769px) {
+    body { overflow-x: hidden; }
+    .navbar .navbar-nav { width: auto; }
+    .navbar .navbar-collapse { position: fixed; background: #eee; width: 70%; right: 0; top: 53px; height: 100%; z-index: 9; }
+    .navbar .navbar-nav li { padding: 10px 0 10px 30px; border-bottom: 1px solid #ddd; }
+    .menu-opened { overflow: hidden; }
+    .menu-opened .navbar { z-index: 1151; }
+    .menu-opened .modal-backdrop.fade { display: block; opacity: .5; }
+}
+
+
+/************Common Classes***********/
+.modal-backdrop.fade { display: none; }
+.bg-purple { background: #230e2d; }
+.bg-purple-light { background: #442e52; }
+.text-white { color: #fff !important; }
+.pos-rel { position: relative; }
+.btn-primary { box-shadow: 0 5px 0 0 #a11517; background: #e5373a; border: 0; text-transform: uppercase; color: #fff; letter-spacing: 0.1rem; line-height: 1.2; min-height: 38px; padding: 1rem 2rem; }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { box-shadow: 0 8px 0 0 #a11517; background: #e5373a; transform: translateY(-3px); }

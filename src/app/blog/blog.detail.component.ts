@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
 @Component({
     moduleId: module.id,
     templateUrl: 'blog.detail.component.html',
-    styleUrls: ['./blog.component.css', './icon.css']
+    styleUrls: ['./blog.component.css']
 })
 
 export class BlogDetailComponent implements OnInit, OnDestroy { 

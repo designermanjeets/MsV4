@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // used to create fake backend
 import { MockBackend, MockConnection } from '@angular/http/testing';
@@ -22,6 +23,7 @@ import { BlogDetailComponent } from './blog/blog.detail.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TruncatePipe }   from './shared/truncate';
+import { WindowRef } from './shared/WindowRef';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 
 
@@ -43,7 +45,8 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,
@@ -52,7 +55,8 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     UserService,
     BlogService,
     MockBackend,
-    BaseRequestOptions
+    BaseRequestOptions,
+    WindowRef 
 
   ],
   exports: [

@@ -1,6 +1,6 @@
 module.exports = {
   'secret': 'longobnoxiouspassphrase',
-  'database': 'mongodb://localhost/mscreativepixel_db'  // mLab
+  'database': 'mongodb://lucky:manjeet@ds139242.mlab.com:39242/mscreativepixeldb'  // mLab
 };
 
 

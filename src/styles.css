@@ -6,7 +6,7 @@ body, html { color: #422d3f; }
 button { cursor: pointer; }
 .navbar { box-shadow: 0 0 5px 5px #eee;  }
 .navbar .navbar-collapse { flex-direction: row-reverse; }
-.navbar .navbar-nav { width: 70%; }
+.navbar .navbar-nav { width: 80%; }
 .navbar .btn-primary { padding: .7rem 2rem; color: #fff !important; margin-top: -3px; }
 
 .card:hover { box-shadow: 0 0 30px 10px #eee; transform: scale(1.05); }
@@ -19,24 +19,38 @@ button { cursor: pointer; }
 
 
 
+
 @media all and (min-width:768px) {
     .navbar .navbar-nav li { margin-left: auto; margin-right: auto; }
     .navbar .navbar-nav li:nth-last-child(1) { margin-right: 0; }
     .navbar .navbar-collapse { transform: none !important; }
+    .navbar-toggleable-sm .navbar-nav .nav-link { padding-right: 1rem; padding-left: 1rem; }
+    .card-columns { column-count: 4; }
 }
 
-@media all and (max-width: 577px) {
-    .container { width: 100%; }
+@media all and (max-width:991px) and (min-width:768px)  {
+    .navbar .navbar-nav { width: 100%; }
+    .navbar-toggleable-sm .navbar-nav .nav-link { padding-right: .5rem; padding-left: .5rem; }
 }
+
 
 @media all and (max-width:769px) {
     body { overflow-x: hidden; }
     .navbar .navbar-nav { width: auto; }
-    .navbar .navbar-collapse { position: fixed; background: #eee; width: 70%; right: 0; top: 53px; height: 100%; z-index: 9; }
-    .navbar .navbar-nav li { padding: 10px 0 10px 30px; border-bottom: 1px solid #ddd; }
+    .navbar .navbar-collapse { position: fixed; background: #fff; width: 70%; right: 0; top: 52px; height: 100%; z-index: 9; }
+    .navbar .navbar-nav li { padding: 10px 30px; border-top: 1px solid #ddd; }
+    .navbar .navbar-nav li:nth-last-child(1) { padding-top: 30px; }
     .menu-opened { overflow: hidden; }
-    .menu-opened .navbar { z-index: 1151; }
+    .menu-opened .navbar { z-index: 1151; background: #fff; box-shadow: none; }
     .menu-opened .modal-backdrop.fade { display: block; opacity: .5; }
+    .container { width: 100%; }
+    /************Typo***********/
+    h1, h2 { font-size: 1.5rem; }
+    .mat-head { font-size: 50px; }
+    h3, h4, h5 { font-size: 1rem; }
+    .form-onpurple label { font-weight: normal; font-size: 14px; }
+    :root .btn-primary { padding: .5rem 1rem; }
+    .form-onpurple .form-control { padding: .5rem .75rem; font-size: .9rem; }
 }
 
 
@@ -48,3 +62,5 @@ button { cursor: pointer; }
 .pos-rel { position: relative; }
 .btn-primary { box-shadow: 0 5px 0 0 #a11517; background: #e5373a; border: 0; text-transform: uppercase; color: #fff; letter-spacing: 0.1rem; line-height: 1.2; min-height: 38px; padding: 1rem 2rem; }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { box-shadow: 0 8px 0 0 #a11517; background: #e5373a; transform: translateY(-3px); }
+.no-scale, .no-scale * { transform: none !important; }
+.no-shadow, .no-shadow * { box-shadow: none !important; }

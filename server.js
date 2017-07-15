@@ -183,7 +183,9 @@ apiRoutes.post('/thread/postcomment', function(req, res, next){
 
 //Load all commments on article detail load
 apiRoutes.post('/thread/getcomments', function (req, res, next) {
-  articles.find(function(err, articles) {
+  var ObjectID = require('mongodb').ObjectID;
+  var o_id = new ObjectID(req.body.parentpost);
+  articles.find({_id: o_id},function(err, articles) {
 		if (err){ 
         res.json(err) 
       }

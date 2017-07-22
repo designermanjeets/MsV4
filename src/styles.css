@@ -73,3 +73,4 @@ button { cursor: pointer; }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { box-shadow: 0 8px 0 0 #a11517; background: #e5373a; transform: translateY(-3px); }
 .no-scale, .no-scale * { transform: none !important; }
 .no-shadow, .no-shadow * { box-shadow: none !important; }
+.fluid { width: 100% !important; }

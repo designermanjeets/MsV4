@@ -4,6 +4,7 @@ import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { AlertService, AuthenticationService, UserService, BlogService } from '../_services/index';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from 'rxjs/Rx';
+import { EmitterService } from '../_services/emitter.service';
 
 @Component({
     moduleId: module.id,
@@ -46,6 +47,10 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         });
     }
 
+    /*ngOnChanges() {  // Not Today
+        EmitterService.get(this.commentslisting).subscribe(data => console.log(data));
+    }*/
+
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
@@ -82,8 +87,17 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         this.BlogService.postReply(this.cmmntfield, _id )
         .subscribe(
             data => {
+                 let parentcomment = data.comments.filter( x => x._id === _id);
+                 let last_reply = parentcomment[0].replies[parentcomment[0].replies.length - 1];
+
+                 for (let cmnts of this.commentslisting) {
+                     if(cmnts._id ===_id) {
+                         cmnts.replies.push(last_reply)
+                     }
+                }
                 this.cmmntfield.poscommentrep= ' '
-                this.loadAllComments(_id);
+                // Emit edit event
+                // EmitterService.get(_id).emit(data);
             },
             error => {
                 this.alertService.error(error);

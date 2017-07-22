@@ -12,9 +12,6 @@
 				<p class="lead">By  {{blogs.author}} | {{blogs.postdate | date:'medium' }}</p>
 				<hr class="my-4">
 				<section [innerHTML]="blogs.article"></section>
-				<p class="lead mt-3 pt-3">
-					<a class="btn btn-primary btn-lg" href="javascript://void(0)" role="button">Speak your mind</a>
-				</p>
 			</div>
 			<!--./Post Detail-->
         </div>
@@ -28,7 +25,7 @@
 					<div *ngIf="f.submitted && !poscomment.valid" class="help-block form-control-feedback">Should not be empty.</div>
 					<small id="helptextarea" class="form-text text-muted">We'll never share your details with anyone else.</small>
 				</div>
-				<button type="submit" class="btn btn-primary">Comment</button>
+				<button type="submit" class="btn btn-primary">Speak your mind</button>
 			</form>
         </div>
     </div>

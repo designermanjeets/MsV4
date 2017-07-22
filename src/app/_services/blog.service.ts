@@ -71,7 +71,7 @@ export class BlogService {
 
         return this.http.post('/thread/getcomments', body , { headers: headers }).map((response: Response) => {
             return response.json();
-        });
+        }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
     
     // Get Post Detail
@@ -92,10 +92,8 @@ export class BlogService {
         };
 
         return this.http.post('/postreply', body).map((response: Response) => {
-            response.json();            
-            let commentpost = response.json();
-            return commentpost;
-        });
+            return response.json();
+        }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
     
 }

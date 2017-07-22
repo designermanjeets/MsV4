@@ -40,10 +40,10 @@ export class BlogComponent implements OnInit {
         htmlUntouched: true,
         htmlRemoveTags: [ ],
         heightMin : 250,
-        fileUploadURL: '/dist/assets',
-        imageUploadURL: '/dist/assets',
-        imageManagerLoadURL: '/dist/assets',
-        videoUploadURL: '/dist/assets'
+        fileUploadURL: 'http://mscreativepixel.com/dist/assets',
+        imageUploadURL: 'http://mscreativepixel.com/dist/assets',
+        imageManagerLoadURL: 'http://mscreativepixel.com/dist/assets',
+        videoUploadURL: 'http://mscreativepixel.com/dist/assets'
     };
 
 

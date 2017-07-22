@@ -11,14 +11,12 @@
 				<h1 class="display-3">{{blogs.postitle}}</h1>
 				<p class="lead">By  {{blogs.author}} | {{blogs.postdate | date:'medium' }}</p>
 				<hr class="my-4">
-				<p>{{blogs.article}}</p>
+				<section [innerHTML]="blogs.article"></section>
 				<p class="lead mt-3 pt-3">
 					<a class="btn btn-primary btn-lg" href="javascript://void(0)" role="button">Speak your mind</a>
 				</p>
 			</div>
 			<!--./Post Detail-->
-
-
         </div>
     </div>
     <div class="row my-3 pt-3">
@@ -53,7 +51,7 @@
 							<span>|&nbsp;&nbsp;{{comments.postdate | date:'medium' }}</span>
 						</div>
 						<div class="comment-content">
-							{{comments.comment}}
+							<section [innerHTML]="comments.comment"></section>
 							<!--Do Reply-->
 							<div class="row my-3 pt-3" [hidden]="!comments.doreply">
 								<div class="col-lg-12">
@@ -88,9 +86,7 @@
 								<h6 class="comment-name"><a href="#">by {{subcomments.authors}}</a></h6><!-- by-author || Conditional Class-->
 								<span>|&nbsp;&nbsp;{{subcomments.postdate | date:'medium' }}</span>
 							</div>
-							<div class="comment-content">
-								{{subcomments.reply}}
-							</div>
+							<div class="comment-content" [innerHTML]="subcomments.reply"></div>
 							<div class="comment-head bordrtop">
 								<a><i class="material-icons">reply</i></a> <!-- (click)="doreplyfun(comments)"-->
 								<i class="material-icons">thumb_up</i>

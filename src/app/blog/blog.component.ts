@@ -4,6 +4,7 @@ import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { AlertService, AuthenticationService, UserService, BlogService } from '../_services/index';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+declare var $ :any;
 
 @Component({
     moduleId: module.id,
@@ -27,12 +28,24 @@ export class BlogComponent implements OnInit {
         private alertService: AlertService,
         private BlogService: BlogService,
         private userService: UserService,
-        private http: Http){
-        }
+        private http: Http        
+        ){}
     
     ngOnInit() {
         this.loadAllBlogPosts();
     }
+
+    public options: Object = {
+        charCounterCount: true,
+        htmlUntouched: true,
+        htmlRemoveTags: [ ],
+        heightMin : 250,
+        fileUploadURL: '/assets',
+        imageUploadURL: '/assets',
+        imageManagerLoadURL: '/assets',
+        videoUploadURL: '/assets'
+    };
+
 
     postSubmit(){
         this.BlogService.postSubmit(this.blog)
@@ -66,4 +79,7 @@ export class BlogComponent implements OnInit {
     blogDetail(_id:number){
         this.router.navigate(['/blogdetail', _id]);
     }
+
+
+
 }

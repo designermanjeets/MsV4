@@ -18,7 +18,8 @@
                 
                 <div class="form-group">
                     <label for="postarea">Post</label>
-                    <textarea class="form-control" id="postarea" rows="3" name="article" [(ngModel)]="blog.article" #article="ngModel" required ></textarea>
+                    <!--<textarea class="form-control" id="postarea" rows="3" name="article" [(ngModel)]="blog.article" #article="ngModel" required ></textarea>-->
+                    <textarea [froalaEditor]="options" class="form-control" id="postarea" rows="3" placeholder="Post your thoughts" name="article" [(ngModel)]="blog.article" #article="ngModel" required></textarea>
                 </div>
                 <button type="button" class="btn btn-link" (click)="isPosting=false;">Cancel</button>
                 <button type="submit" class="btn btn-primary">Publish</button>
@@ -26,14 +27,14 @@
         </div>
     </div>
     <!--Blog Posts-->
-    <div class="card my-3" *ngFor="let blogs of bloglisting">
+    <div class="card my-3 no-scale" *ngFor="let blogs of bloglisting">
         <div class="card-header d-flex justify-content-start">
             Tags: <span class="badge badge-pill badge-default">msv4</span>
             <span class="ml-auto">By  {{blogs.author}} | {{blogs.postdate | date:'medium' }} </span>
         </div>
         <div class="card-block">
             <h4 class="card-title"><a href="javascript://(void)" (click)="blogDetail(blogs._id)">{{blogs.postitle}}</a></h4>
-            <p class="card-text">{{blogs.article | limitTo : 375 }}</p>
+            <p class="card-text" [innerHTML]="blogs.article | limitTo :1000 | sanitizeHtml"></p>
             <a href="javascript://(void)" (click)="blogDetail(blogs._id)" class="btn btn-primary">Read More...</a>
         </div>
     </div>

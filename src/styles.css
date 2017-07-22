@@ -19,6 +19,14 @@ button { cursor: pointer; }
 .form-onpurple .form-control:focus, .form-onpurple .form-control:active { outline: none; border:none; }
 
 
+.fr-box a[href="https://www.froala.com/wysiwyg-editor?k=u"] { display: none !important; }
+
+.typ { color: #2B91AF; }
+.str, .lit, .tag { color: #7D2727; }
+.kwd, .dec { color: #101094; }
+.pun, .pln { color: #303336; }
+
+
 
 
 @media all and (min-width:768px) {

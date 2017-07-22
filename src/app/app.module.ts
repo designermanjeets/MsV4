@@ -24,7 +24,11 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TruncatePipe }   from './shared/truncate';
 import { WindowRef } from './shared/WindowRef';
+import { SanitizeHtml } from './shared/sanitizer';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
+
+// Import Angular plugin for Editor.
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 
 @NgModule({
@@ -39,14 +43,16 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     routedComponents,
     RegisterComponent,
     DashboardComponent,
-    TruncatePipe
+    TruncatePipe,
+    SanitizeHtml
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() // Editor
   ],
   providers: [
     AuthGuard,
@@ -56,8 +62,8 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
     BlogService,
     MockBackend,
     BaseRequestOptions,
-    WindowRef 
-
+    WindowRef,
+    SanitizeHtml
   ],
   exports: [
     

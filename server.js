@@ -1,7 +1,7 @@
 // Include our packages in our main server file
 var express = require('express');
 var path = require('path');
-app = express();
+var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -126,7 +126,6 @@ apiRoutes.post('/thread', function(req, res, next){
         if (err)  
           res.send(err); 
         else {
-          console.log(articlesnew);
           res.json(articlesnew);
         }
       });   

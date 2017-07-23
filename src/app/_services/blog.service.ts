@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Observable  } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Subject } from "rxjs/Subject";
 import { UserService } from '../_services/index';
+
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { AuthenticationService } from '../_services/index';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -17,81 +19,111 @@ export class BlogService {
     postings: any = [];
     currentUser:any;
 
-    constructor(private userService: UserService, private http: Http) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if(this.currentUser){ 
-            this.isDashboard.next(true); 
+    constructor(
+        private userService: UserService, 
+        private http: Http,
+        private authenticationService: AuthenticationService
+        ){
+            this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if(this.currentUser){ 
+                this.isDashboard.next(true); 
+            }
         }
-     }
  
     postSubmit(blog) {
-        var body = { 
+
+        let body = { 
             postitle: blog.postitle,
             author:   this.currentUser.username,
             article:  blog.article
         };
         
-        return this.http.post('/thread', body).map((response: Response) => {
-            response.json();            
-            let blogpost = response.json();
+        // add authorization header with jwt token
+        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers, body: body });  
+        
+        return this.http.post('/thread', options).map((response: Response) => {
+                        
+            //let blogpost = response.json();
             this.isDashboard.next(true);
-            return blogpost;
-        });
+            return response.json();
+        }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
 
     loadAllBlogPosts() {
-        var body = { author: this.currentUser.username };
 
-        return this.http.post('/thread/getposts', body).map((response: Response) => {
+        let body = { author: this.currentUser.username };
+        // add authorization header with jwt token
+        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers, body: body });
+
+        return this.http.post('/thread/getposts', options).map((response: Response) => {
             return response.json();
-        });
+        }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
     
 
     postComment(cmmntfield, _id){
-        var body = {
+
+        let body = {
             comment     :   cmmntfield.poscomment,
             author      :   this.currentUser.username,
             parentpost  :   _id
         };
-        return this.http.post('/thread/postcomment', body).map((response: Response) => {
-            response.json();            
-            let commentpost = response.json();
-            return commentpost;
-        });
+
+        // add authorization header with jwt token
+        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers, body: body });
+
+        return this.http.post('/thread/postcomment', options).map((response: Response) => {
+            return response.json();            
+            //let commentpost = response.json();
+            //return commentpost;
+        }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
     
     //Load all comments on post detail 
-    loadAllComments(_id): Observable<any>  {
-        
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json'); // Set JSON header so that data is parsed by bodyParser on the backend
+    loadAllComments(_id): Observable<any>  { 
 
-        var body = { parentpost: _id };
+        let body = { parentpost: _id };
 
-        return this.http.post('/thread/getcomments', body , { headers: headers }).map((response: Response) => {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers, body: body });
+
+        return this.http.post('/thread/getcomments', options).map((response: Response) => {
             return response.json();
         }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
     
     // Get Post Detail
      getBlogDetail(_id) {
-        var body = { author: this.currentUser.username };
+         
+        let body = { author: this.currentUser.username };
 
-        return this.http.post('/thread/userSpecificPost'+ _id, body).map((response: Response) => {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers, body: body });
+
+        return this.http.post('/thread/userSpecificPost'+ _id, options).map((response: Response) => {
             return response.json();
         });
     }
 
     // Reply 
     postReply(cmmntfield, _id): Observable<any> {
-        var body = {
+
+        let body = {
             reply       :   cmmntfield.poscommentrep,
             author      :   this.currentUser.username,
             parentpost  :   _id
         };
 
-        return this.http.post('/postreply', body).map((response: Response) => {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers, body: body });
+
+        return this.http.post('/postreply', options).map((response: Response) => {
             return response.json();
         }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }

@@ -14,6 +14,7 @@ module.exports = function(passport) {
         return done(err, false);
       }
       if (user) {
+        console.log(jwt_payload);
         done(null, user);
       } else {
         done(null, false);

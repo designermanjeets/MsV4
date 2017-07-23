@@ -20,10 +20,13 @@ export class DashboardComponent {
     private route: ActivatedRoute,
     private router: Router
     ) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser')); // set token if saved in local storage
+
         if(this.currentUser){ 
             this.isDashboard=true 
         }
+
      }
  
     ngOnInit() {

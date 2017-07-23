@@ -29,6 +29,7 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
 
 // Import Angular plugin for Editor.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+//import { MshttpService } from './shared/mshttp.service'; // Not Today || 20170723
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     MockBackend,
     BaseRequestOptions,
     WindowRef,
-    SanitizeHtml
+    SanitizeHtml,
+  //  MshttpService // Not Today || 20170723
   ],
   exports: [
     

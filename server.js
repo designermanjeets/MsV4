@@ -82,13 +82,41 @@ apiRoutes.post('/authenticate', function(req, res) {
           var token = jwt.sign(user, config.secret, {
             expiresIn: 10080 // in seconds
           });
-          res.json({ success: true, token: 'JWT ' + token });
+          res.json({ success: true, token: token });
         } else {
           res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
         }
       });
     }
   });
+});
+
+
+// route middleware to verify a token
+apiRoutes.use(function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = (req.body.headers.token).toString();
+  // decode token
+  if (token) {
+    // verifies secret and checks exp
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({ 
+        success: false, 
+        message: 'No token provided.' 
+    });
+
+  }
 });
 
 //Get all users to display as a listing
@@ -117,7 +145,7 @@ apiRoutes.delete('/getallusers:_id', function (req, res, next) {
 
 //Post Article 
 apiRoutes.post('/thread', function(req, res, next){
-  articles.findOne({author:req.body.author},function(err, users) {
+  articles.findOne({author:req.body.body.author},function(err, users) {
     if (err) {
       res.json(err);
     } else {
@@ -160,14 +188,14 @@ apiRoutes.post('/thread/userSpecificPost:_id', function (req, res, next) {
 //Post comment on blog detail page
 apiRoutes.post('/thread/postcomment', function(req, res, next){
   var ObjectID = require('mongodb').ObjectID;
-  var o_id = new ObjectID(req.body.parentpost);
+  var o_id = new ObjectID(req.body.body.parentpost);
   articles.findOneAndUpdate({_id: o_id},
   {
       $push: {
           comments: {
-              comment     : req.body.comment,
-              authors      : req.body.author,
-              parentpost  : req.body.parentpost
+              comment       : req.body.body.comment,
+              authors       : req.body.body.author,
+              parentpost    : req.body.body.parentpost
           }
       }
     },{ new: true },
@@ -183,7 +211,7 @@ apiRoutes.post('/thread/postcomment', function(req, res, next){
 //Load all commments on article detail load
 apiRoutes.post('/thread/getcomments', function (req, res, next) {
   var ObjectID = require('mongodb').ObjectID;
-  var o_id = new ObjectID(req.body.parentpost);
+  var o_id = new ObjectID(req.body.body.parentpost);
   articles.find({_id: o_id},function(err, articles) {
 		if (err){ 
         res.json(err) 
@@ -197,14 +225,14 @@ apiRoutes.post('/thread/getcomments', function (req, res, next) {
 //Post reply on comment
 apiRoutes.post('/postreply', function(req, res, next){
   var ObjectID = require('mongodb').ObjectID;
-  var o_id = new ObjectID(req.body.parentpost);
+  var o_id = new ObjectID(req.body.body.parentpost);
   articles.findOneAndUpdate({"comments._id": o_id},
   {
       $push: {
            "comments.$.replies": {
-            reply     	: req.body.reply,
-            authors     : req.body.author,
-            parentpost  : req.body.parentpost
+            reply     	: req.body.body.reply,
+            authors     : req.body.body.author,
+            parentpost  : req.body.body.parentpost
           }
       }
     },

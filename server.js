@@ -44,6 +44,15 @@ require('./config/passport')(passport);
 // Create API group routes
 var apiRoutes = express.Router();
 
+apiRoutes.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    if (req.method === "OPTIONS") 
+        res.send(200);
+    else 
+        next();
+})
 
 // Register new users
 apiRoutes.post('/register', function(req, res) {
@@ -95,6 +104,7 @@ apiRoutes.post('/authenticate', function(req, res) {
 // route middleware to verify a token
 apiRoutes.use(function(req, res, next) {
   // check header or url parameters or post parameters for token
+  console.log(req.body);
   var token = (req.body.headers.token).toString();
   // decode token
   if (token) {

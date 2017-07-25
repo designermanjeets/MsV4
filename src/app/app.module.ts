@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { FormsModule }    from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions} from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // used to create fake backend
@@ -29,7 +29,8 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
 
 // Import Angular plugin for Editor.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-//import { MshttpService } from './shared/mshttp.service'; // Not Today || 20170723
+// import { InterceptedHttp } from './shared/mshttp.service'; // Not Today || 20170723
+import { httpFactory } from "./shared/httpFactory";
 
 
 @NgModule({
@@ -65,7 +66,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     BaseRequestOptions,
     WindowRef,
     SanitizeHtml,
-  //  MshttpService // Not Today || 20170723
+    {
+      provide: Http,
+      useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions]
+    }
   ],
   exports: [
     

@@ -11,6 +11,7 @@ import { AuthenticationService } from '../_services/index';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+
  
 @Injectable()
 export class BlogService {
@@ -39,8 +40,8 @@ export class BlogService {
         };
         
         // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers, body: body });  
+        //let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({  body: body });  
         
         return this.http.post('/thread', options).map((response: Response) => {
                         
@@ -54,8 +55,8 @@ export class BlogService {
 
         let body = { author: this.currentUser.username };
         // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers, body: body });
+        //let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+        let options = new RequestOptions({ body: body });
 
         return this.http.post('/thread/getposts', options).map((response: Response) => {
             return response.json();

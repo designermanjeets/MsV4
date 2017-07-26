@@ -93,7 +93,7 @@ apiRoutes.post('/authenticate', function(req, res) {
 // route middleware to verify a token
 apiRoutes.use(function(req, res, next) {
   
-  res.header('Access-Control-Allow-Origin', 'http://192.168.43.111:3000');
+  res.header('Access-Control-Allow-Origin', 'http://mscreativepixel.com');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, HEAD, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'content-Type, x-requested-with, Accept, Authorization, secret, token');
 

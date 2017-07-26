@@ -2,18 +2,18 @@ import { Injectable } from "@angular/core";
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import { environment } from "environments/environment";
-import { AuthenticationService } from '../_services/index';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class InterceptedHttp extends Http {
     constructor(
       backend: ConnectionBackend, 
       defaultOptions: RequestOptions,
-      authenticationService: AuthenticationService
+      private router: Router,
       ) {
         super(backend, defaultOptions);
       }
-
+    
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
         return super.request(url, options);
     }
@@ -23,7 +23,7 @@ export class InterceptedHttp extends Http {
         return super.get(url, this.getRequestOptionArgs(options));
     }
 
-    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    post(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
         return super.post(url, body, this.getRequestOptionArgs(options));
     }
@@ -49,13 +49,25 @@ export class InterceptedHttp extends Http {
         if (options.headers == null) {
             options.headers = new Headers();
         }
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Access-Control-Allow-Origin', '*');
-        options.headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        options.headers.append('Access-Control-Allow-Headers', 'Content-Type');
-        options.headers.append('secret', 'longobnoxiouspassphrase');
-        options.headers.append('token', 'dasdadadad');
-
+        
+        options.headers.append('Access-Control-Allow-Origin', environment.origin);
+        options.headers.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
+        options.headers.append('Access-Control-Allow-Headers', 'Content-Type'); 
+        //options.headers.append('secret', 'longobnoxiouspassphrase');     // Not sure of Token to work with Interceptors
+        //options.headers.append('token', JSON.parse(localStorage.getItem('currentUser')).token);
         return options;
     }
+
+    intercept(observable: Observable<Response>): Observable<Response> {
+        return observable.catch((err, source) => {
+            if (err.status  == 401) {
+                this.router.navigate(['/login']);
+                return Observable.empty();
+            } else {
+                return Observable.throw(err);
+            }
+        });
+ 
+    }
+
 }

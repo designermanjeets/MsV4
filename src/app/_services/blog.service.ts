@@ -39,28 +39,22 @@ export class BlogService {
             article:  blog.article
         };
         
-        // add authorization header with jwt token
-        //let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({  body: body });  
         
-        return this.http.post('/thread', options).map((response: Response) => {
-                        
-            //let blogpost = response.json();
+        return this.http.post('/thread', body).map((response: Response) => {
+
             this.isDashboard.next(true);
             return response.json();
+
         }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+
     }
 
     loadAllBlogPosts() {
 
-        let body = { author: this.currentUser.username };
-        // add authorization header with jwt token
-        //let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ body: body });
-
-        return this.http.post('/thread/getposts', options).map((response: Response) => {
+        return this.http.post('/thread/getposts', Option).map((response: Response) => {
             return response.json();
         }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+
     }
     
 
@@ -72,15 +66,10 @@ export class BlogService {
             parentpost  :   _id
         };
 
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers, body: body });
-
-        return this.http.post('/thread/postcomment', options).map((response: Response) => {
-            return response.json();            
-            //let commentpost = response.json();
-            //return commentpost;
+        return this.http.post('/thread/postcomment', body).map((response: Response) => {
+            return response.json(); 
         }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+        
     }
     
     //Load all comments on post detail 
@@ -88,26 +77,18 @@ export class BlogService {
 
         let body = { parentpost: _id };
 
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers, body: body });
-
-        return this.http.post('/thread/getcomments', options).map((response: Response) => {
+        return this.http.post('/thread/getcomments', body).map((response: Response) => {
             return response.json();
         }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+
     }
     
     // Get Post Detail
      getBlogDetail(_id) {
-         
-        let body = { author: this.currentUser.username };
 
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers, body: body });
-
-        return this.http.post('/thread/userSpecificPost'+ _id, options).map((response: Response) => {
+        return this.http.post('/thread/userSpecificPost'+ _id, Option).map((response: Response) => {
             return response.json();
+
         });
     }
 
@@ -119,14 +100,11 @@ export class BlogService {
             author      :   this.currentUser.username,
             parentpost  :   _id
         };
-
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers, body: body });
-
-        return this.http.post('/postreply', options).map((response: Response) => {
+        
+        return this.http.post('/postreply', body).map((response: Response) => {
             return response.json();
         }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+
     }
     
 }

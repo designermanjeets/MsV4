@@ -12,34 +12,26 @@ export class UserService {
     ) { }
     
     getById(id: number) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.get('/getallusers' + id, options).map((response: Response) => response.json());
+        return this.http.get('/getallusers' + id).map((response: Response) => response.json());
     }
  
     createUsers(user) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post('/register', JSON.stringify(user), options).map((response: Response) => {
+        return this.http.post('/register', JSON.stringify(user)).map((response: Response) => {
             return response.json()
         });
     }
  
-    delete(_id: number) {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });        
-        return this.http.delete('/getallusers' + _id, options).map((response: Response) => {
+    delete(_id: number) {      
+        return this.http.delete('/getallusers' + _id).map((response: Response) => {
             return response.json()
         });
     }
 
     getAll() {
-        // add authorization header with jwt token
-        let headers = new Headers({ 'secret': 'longobnoxiouspassphrase ' , 'token' : this.authenticationService.token });
+
+        let headers = new Headers({ token: this.authenticationService.token })
         let options = new RequestOptions({ headers: headers });
+        
         return this.http.post('/getallusers', options).map((response: Response) => {
             return response.json();
         });

@@ -44,16 +44,6 @@ require('./config/passport')(passport);
 // Create API group routes
 var apiRoutes = express.Router();
 
-apiRoutes.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    if (req.method === "OPTIONS") 
-        res.send(200);
-    else 
-        next();
-})
-
 // Register new users
 apiRoutes.post('/register', function(req, res) {
   if(!req.body.username || !req.body.password) {
@@ -100,12 +90,16 @@ apiRoutes.post('/authenticate', function(req, res) {
   });
 });
 
-
 // route middleware to verify a token
 apiRoutes.use(function(req, res, next) {
+  
+  res.header('Access-Control-Allow-Origin', 'http://192.168.43.111:3000');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, HEAD, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'content-Type, x-requested-with, Accept, Authorization, secret, token');
+
   // check header or url parameters or post parameters for token
-  console.log(req.body);
-  var token = (req.body.headers.token).toString();
+  /* var token = (req.body.headers.token).toString() // Because Everything we pass in options goes inside BODY of req, even HEADERS 
+  
   // decode token
   if (token) {
     // verifies secret and checks exp
@@ -126,7 +120,10 @@ apiRoutes.use(function(req, res, next) {
         message: 'No token provided.' 
     });
 
-  }
+  } */
+
+   next();
+
 });
 
 //Get all users to display as a listing
@@ -155,7 +152,7 @@ apiRoutes.delete('/getallusers:_id', function (req, res, next) {
 
 //Post Article 
 apiRoutes.post('/thread', function(req, res, next){
-  articles.findOne({author:req.body.body.author},function(err, users) {
+  articles.findOne({author:req.body.author},function(err, users) {
     if (err) {
       res.json(err);
     } else {
@@ -198,14 +195,14 @@ apiRoutes.post('/thread/userSpecificPost:_id', function (req, res, next) {
 //Post comment on blog detail page
 apiRoutes.post('/thread/postcomment', function(req, res, next){
   var ObjectID = require('mongodb').ObjectID;
-  var o_id = new ObjectID(req.body.body.parentpost);
+  var o_id = new ObjectID(req.body.parentpost);
   articles.findOneAndUpdate({_id: o_id},
   {
       $push: {
           comments: {
-              comment       : req.body.body.comment,
-              authors       : req.body.body.author,
-              parentpost    : req.body.body.parentpost
+              comment       : req.body.comment,
+              authors       : req.body.author,
+              parentpost    : req.body.parentpost
           }
       }
     },{ new: true },
@@ -221,7 +218,7 @@ apiRoutes.post('/thread/postcomment', function(req, res, next){
 //Load all commments on article detail load
 apiRoutes.post('/thread/getcomments', function (req, res, next) {
   var ObjectID = require('mongodb').ObjectID;
-  var o_id = new ObjectID(req.body.body.parentpost);
+  var o_id = new ObjectID(req.body.parentpost);
   articles.find({_id: o_id},function(err, articles) {
 		if (err){ 
         res.json(err) 
@@ -235,14 +232,14 @@ apiRoutes.post('/thread/getcomments', function (req, res, next) {
 //Post reply on comment
 apiRoutes.post('/postreply', function(req, res, next){
   var ObjectID = require('mongodb').ObjectID;
-  var o_id = new ObjectID(req.body.body.parentpost);
+  var o_id = new ObjectID(req.body.parentpost);
   articles.findOneAndUpdate({"comments._id": o_id},
   {
       $push: {
            "comments.$.replies": {
-            reply     	: req.body.body.reply,
-            authors     : req.body.body.author,
-            parentpost  : req.body.body.parentpost
+            reply     	: req.body.reply,
+            authors     : req.body.author,
+            parentpost  : req.body.parentpost
           }
       }
     },

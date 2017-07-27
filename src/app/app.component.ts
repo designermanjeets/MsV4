@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 import { AlertService, AuthenticationService } from '../app/_services/index';
 import { Subscription } from 'rxjs/Subscription';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { WindowRef } from '../app/shared/WindowRef';
+import { Title, Meta }     from '@angular/platform-browser';
 
 
 
@@ -34,7 +35,9 @@ export class AppComponent {
     menuState:string = 'out';
     
     constructor( private authenticationService: AuthenticationService,
-    private winRef: WindowRef    //console.log('Native window obj', winRef.nativeWindow); // getting the native window obj
+    private winRef: WindowRef,    //console.log('Native window obj', winRef.nativeWindow); // getting the native window obj
+    private titleService: Title,
+    private Meta:Meta 
     ) {
         if(localStorage.getItem('currentUser')){ 
           this.isDashboard=true 
@@ -43,7 +46,11 @@ export class AppComponent {
     }
     
     ngOnInit(){
-         this.authenticationService.isDashboard.subscribe((isDashboard => this.isDashboard=isDashboard))
+        this.authenticationService.isDashboard.subscribe((isDashboard => this.isDashboard=isDashboard));
+        this.titleService.setTitle( 'Home, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' );
+        this.Meta.addTag({ name: 'description', content: 'MsCreativePixel.com is a product development, design, and services firm creating mobile and web applications using JavaScript frameworks such as Angular 2, Angular 4 and React.' });
+        this.Meta.addTag({ name: 'twitter:site', content: '@designermanjeet' });
+        this.Meta.addTag({ name: 'og:title', content: 'Home, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' });
     }
     
       toggleMenu(event) {

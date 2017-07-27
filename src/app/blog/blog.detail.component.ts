@@ -5,6 +5,7 @@ import { AlertService, AuthenticationService, UserService, BlogService } from '.
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { EmitterService } from '../_services/emitter.service';
+import { Title, Meta }     from '@angular/platform-browser';
 
 @Component({
     moduleId: module.id,
@@ -35,7 +36,9 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         private alertService: AlertService,
         private BlogService: BlogService,
         private userService: UserService,
-        private http: Http
+        private http: Http,
+        private titleService: Title,
+        private Meta:Meta 
     ){}
     
     
@@ -45,6 +48,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
             this.getBlogDetails(_id);
             this.loadAllComments(_id);
         });
+        this.titleService.setTitle( 'Blog Detail, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' );
+        
     }
 
     /*ngOnChanges() {  // Not Today
@@ -120,6 +125,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         this.BlogService.getBlogDetail(_id)
         .subscribe(
             data => {
+                this.Meta.updateTag({ name: 'og:title', content: data.postitle + ', Blog Detail, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' });
                 this.blogs = data;
             },
             error => {

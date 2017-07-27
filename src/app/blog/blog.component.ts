@@ -4,6 +4,7 @@ import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { AlertService, AuthenticationService, UserService, BlogService } from '../_services/index';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { Title, Meta }     from '@angular/platform-browser';
 declare var $ :any;
 
 @Component({
@@ -28,11 +29,15 @@ export class BlogComponent implements OnInit {
         private alertService: AlertService,
         private BlogService: BlogService,
         private userService: UserService,
-        private http: Http        
+        private http: Http,
+        private titleService: Title,
+        private Meta:Meta         
         ){}
     
     ngOnInit() {
         this.loadAllBlogPosts();
+        this.titleService.setTitle( 'Blog, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' );
+        this.Meta.updateTag({ name: 'og:title', content: 'Blog, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' });
     }
 
     public options: Object = {

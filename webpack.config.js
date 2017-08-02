@@ -84,10 +84,10 @@ module.exports = {
       "script-loader!./node_modules\\froala-editor\\js\\froala_editor.pkgd.min.js"
     ],
     "styles": [
-      "./src\\bootstrap.min.css",
-      "./src\\styles.css",
-      "./node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css",
-      "./node_modules\\font-awesome\\css\\font-awesome.css"
+      "./src/bootstrap.min.css",
+      "./src/styles.css",
+      "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+      "./node_modules/font-awesome/css/font-awesome.css"
     ]
   },
   "output": {

@@ -59,7 +59,6 @@ module.exports = {
   "devtool": "source-map",
   "resolve": {
     "extensions": [
-      "", 
       ".ts",
       ".js"
     ],
@@ -75,10 +74,10 @@ module.exports = {
   },
   "entry": {
     "main": [
-      "./src\\main.ts"
+      "./src/main.ts"
     ],
     "polyfills": [
-      "./src\\polyfills.ts"
+      "./src/polyfills.ts"
     ],
     "scripts": [
       "script-loader!./node_modules\\jquery\\dist\\jquery.min.js",

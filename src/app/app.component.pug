@@ -1,0 +1,39 @@
+nav.navbar.navbar-toggleable-sm.navbar-light
+    .container
+        button.navbar-toggler.navbar-toggler-right(type="button", (click)="toggleMenu($event)" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
+            |
+            |
+            span.navbar-toggler-icon
+        |
+        |
+        a.navbar-brand(href ="#") MsCreativePixel
+        |
+        |
+        .navbar-collapse(id="navbarText", [@slideInOut]="menuState")
+            mixin navlinks(name, routerlink)
+                li.nav-item&attributes(attributes)
+                    |
+                    |
+                    a.nav-link('(click)'="toggleMenu($event)", [routerLinkActive]="['active']", [routerLink]=routerlink) #{name}
+
+            ul.navbar-nav.text-right-sm
+                +navlinks('home', "['home']")
+                +navlinks("About", "['about']")
+                +navlinks("Services", "['services']")
+                +navlinks("Work", "['work']")
+                +navlinks("Blog", "['blog']")
+                +navlinks("Dashboard", "['dashboard']")(class="hidden-xl-down",  [hidden]="isDashboard")
+                +navlinks("Login", "['login']")([hidden]="isDashboard")
+                li.nav-item
+                    a.nav-link.btn.btn-primary(role="button") Contact Us
+|
+|<alert></alert>
+|<router-outlet></router-outlet>
+|
+//Foo
+footer.bg-purple.text-white.py-3.text-center
+    |
+    .container.copyright
+        |
+        .col-xs-12  &#169; MsCreativePixel.io, 2017.   All Rights Reserved. Privacy Policy
+//Foo

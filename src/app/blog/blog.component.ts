@@ -9,7 +9,7 @@ declare var $ :any;
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'blog.component.html',
+    templateUrl: 'blog.component.pug',
     styleUrls: ['./blog.component.css']
 })
 

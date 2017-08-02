@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  origin: 'http://mscreativepixel.com'  //'http://mscreativepixel.com'
+  origin: 'http://192.168.43.111:3000'  //'http://mscreativepixel.com'
 };

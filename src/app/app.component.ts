@@ -12,7 +12,7 @@ import { Title, Meta }     from '@angular/platform-browser';
 @Component({
   moduleId: module.id,
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.component.pug',
   //styleUrls: ['./app.component.css'],
   animations: [
     trigger('slideInOut', [

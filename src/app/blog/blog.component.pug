@@ -1,0 +1,40 @@
+section.container.mt-3.pt-3
+    .row.pb-3
+        .col-lg-12
+            h1 Happy Blogging
+        .col-lg-12.mt-3.pt-3([hidden]="isPosting")
+            button.btn.btn-primary(type="button" '(click)'="isPostingForm=true") Create Post
+    .row.mt-3.pt-3([hidden]="!isPostingForm")
+        .col-lg-12
+            form( name="form" '(ngSubmit)'="postSubmit()" #f="ngForm" novalidate)
+                .form-group
+                    label( for="posttitle") Post title
+                    input.form-control#posttitle(type="email",aria-describedby="posttitleHelp", placeholder="Enter Title", name="postitle", [(ngModel)]="blog.postitle" #postitle="ngModel", required )
+                    |
+                    |
+                    small#posttitleHelp.form-text text-muted We'll never share your details with anyone else.
+                .form-group
+                    label( for ="postarea") Post
+                    textarea.form-control#postarea([froalaEditor]="options", rows="3", placeholder="Post your thoughts", name="article", [(ngModel)]="blog.article", #article="ngModel", required)
+                button.btn.btn-link( (click)="isPosting=false", type="button") Cancel
+                button.btn.btn-primary( type="submit") Publish
+    
+    //Blog Posts
+    .card.my-3.no-scale( *ngFor="let blogs of bloglisting")
+        .card-header.d-flex.justify-content-start Tags:
+            |
+            |
+            span.badge.badge-pill.badge-default msv4
+            |
+            |
+            span.ml-auto By  {{blogs.author}} | {{blogs.postdate | date:'medium' }}
+        .card-block
+            h4.card-title
+                |
+                |
+                a(href="javascript://(void)", (click)="blogDetail(blogs._id)") {{blogs.postitle}}
+            p.card-text([innerHTML]="blogs.article | limitTo :1000 | sanitizeHtml")
+            |
+            |
+            a.btn.btn-primary(href="javascript://(void)") Read More...
+    //./Blog Posts

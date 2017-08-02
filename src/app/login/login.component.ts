@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Rx';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'login.component.html'
+    templateUrl: 'login.component.pug'
 })
 
 export class LoginComponent implements OnInit {

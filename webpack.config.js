@@ -29,7 +29,7 @@ const postcssPlugins = function () {
             postcssUrl({
                 url: (URL) => {
                     // Only convert root relative URLs, which CSS-Loader won't process into require().
-                    if (!URL.startsWith('/') || URL.startsWith('//')) {
+                    if (!URL.startsWith('./') || URL.startsWith('//')) {
                         return URL;
                     }
                     if (deployUrl.match(/:\/\//)) {

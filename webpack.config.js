@@ -129,7 +129,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "src/bootstrap.min.css"),
           path.join(process.cwd(), "src/styles.css"),
-          path.join(process.cwd(), "node_modules/froala-editor/cs/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.css$/,

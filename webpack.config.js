@@ -29,7 +29,7 @@ const postcssPlugins = function () {
             postcssUrl({
                 url: (URL) => {
                     // Only convert root relative URLs, which CSS-Loader won't process into require().
-                    if (!URL.startsWith('./') || URL.startsWith('//')) {
+                    if (!URL.startsWith('/') || URL.startsWith('//')) {
                         return URL;
                     }
                     if (deployUrl.match(/:\/\//)) {
@@ -74,20 +74,20 @@ module.exports = {
   },
   "entry": {
     "main": [
-      "./src\\main.ts"
+      "./src/main.ts"
     ],
     "polyfills": [
-      "./src\\polyfills.ts"
+      "./src/polyfills.ts"
     ],
     "scripts": [
-      "script-loader!./node_modules\\jquery\\dist\\jquery.min.js",
-      "script-loader!./node_modules\\froala-editor\\js\\froala_editor.pkgd.min.js"
+      "script-loader!./node_modules/jquery/dist/jquery.min.js",
+      "script-loader!./node_modules/froala-editor/js/froala_editor.pkgd.min.js"
     ],
     "styles": [
-      "./src\\bootstrap.min.css",
-      "./src\\styles.css",
-      "./node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css",
-      "./node_modules\\font-awesome\\css\\font-awesome.css"
+      "./src/bootstrap.min.css",
+      "./src/styles.css",
+      "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+      "./node_modules/font-awesome/css/font-awesome.css"
     ]
   },
   "output": {
@@ -127,10 +127,10 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/cs/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.css$/,
         "use": [
@@ -153,10 +153,10 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -187,10 +187,10 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.less$/,
         "use": [
@@ -219,10 +219,10 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.styl$/,
         "use": [
@@ -252,10 +252,10 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.css$/,
         "use": [
@@ -278,10 +278,10 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -312,10 +312,10 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.less$/,
         "use": [
@@ -344,10 +344,10 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\bootstrap.min.css"),
-          path.join(process.cwd(), "src\\styles.css"),
-          path.join(process.cwd(), "node_modules\\froala-editor\\css\\froala_editor.pkgd.min.css"),
-          path.join(process.cwd(), "node_modules\\font-awesome\\css\\font-awesome.css")
+          path.join(process.cwd(), "src/bootstrap.min.css"),
+          path.join(process.cwd(), "src/styles.css"),
+          path.join(process.cwd(), "node_modules/froala-editor/css/froala_editor.pkgd.min.css"),
+          path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css")
         ],
         "test": /\.styl$/,
         "use": [
@@ -389,7 +389,7 @@ module.exports = {
         "favicon.ico"
       ],
       "globOptions": {
-        "cwd": "mscreativepixel.com\\MsV4\\MsV4\\src",
+        "cwd": "mscreativepixel.com/MsV4/MsV4/src",
         "dot": true,
         "ignore": "**/.gitkeep"
       }

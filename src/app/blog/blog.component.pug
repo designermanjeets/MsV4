@@ -20,7 +20,7 @@ section.container.mt-3.pt-3
                 button.btn.btn-primary( type="submit") Publish
     
     //Blog Posts
-    .card.my-3.no-scale( *ngFor="let blogs of bloglisting")
+    .card.my-3.no-scale( *ngFor="let blogs of bloglisting.slice().reverse()")
         .card-header.d-flex.justify-content-start Tags:
             |
             |

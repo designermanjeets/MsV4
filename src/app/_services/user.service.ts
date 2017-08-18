@@ -16,7 +16,8 @@ export class UserService {
     }
  
     createUsers(user) {
-        return this.http.post('/register', JSON.stringify(user)).map((response: Response) => {
+        
+        return this.http.post('/register', user).map((response: Response) => {
             return response.json()
         });
     }

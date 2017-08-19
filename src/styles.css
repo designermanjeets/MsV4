@@ -5,7 +5,7 @@
 * { transition: all 0.4s ease; line-height: 1.4; }
 body, html { color: #422d3f; }
 button { cursor: pointer; }
-.navbar { box-shadow: 0 0 5px 5px #eee;  }
+.navbar { box-shadow: 0 0 5px 5px #eee; padding: .7rem 1rem; }
 .navbar .navbar-collapse { flex-direction: row-reverse; }
 .navbar .navbar-nav { width: 80%; }
 .navbar .btn-primary { padding: .7rem 2rem; color: #fff !important; margin-top: -3px; }
@@ -65,6 +65,7 @@ button { cursor: pointer; }
 
 /************Common Classes***********/
 .modal-backdrop.fade { display: none; }
+.modal-backdrop.fade.show, .modal.fade.show { display: block; }
 .bg-purple { background: #230e2d; }
 .bg-purple-light { background: #442e52; }
 .text-white { color: #fff !important; }
@@ -72,5 +73,5 @@ button { cursor: pointer; }
 .btn-primary { box-shadow: 0 5px 0 0 #a11517; background: #e5373a; border: 0; text-transform: uppercase; color: #fff; letter-spacing: 0.1rem; line-height: 1.2; min-height: 38px; padding: 1rem 2rem; }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { box-shadow: 0 8px 0 0 #a11517; background: #e5373a; transform: translateY(-3px); }
 .no-scale, .no-scale * { transform: none !important; }
-.no-shadow, .no-shadow * { box-shadow: none !important; }
+.no-shadow, .no-shadow *, .no-boxshadow { box-shadow: none !important; }
 .fluid { width: 100% !important; }

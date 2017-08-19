@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MshttpService } from './mshttp.service';
+import { InterceptedHttp } from './mshttp.service';
 
 describe('MshttpService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MshttpService]
+      providers: [InterceptedHttp]
     });
   });
 
-  it('should be created', inject([MshttpService], (service: MshttpService) => {
+  it('should be created', inject([InterceptedHttp], (service: InterceptedHttp) => {
     expect(service).toBeTruthy();
   }));
 });

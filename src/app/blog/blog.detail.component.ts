@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { AlertService, AuthenticationService, UserService, BlogService } from '../_services/index';
+import { SiblingSharing } from '../shared/emitter.service';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { EmitterService } from '../_services/emitter.service';
@@ -25,9 +26,9 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     comments:any = {};
     doreply: boolean = false;
     replylisting: any = [];
-
-
     _id: number;
+    currentUser:any;
+    
     private sub: any;
 
     constructor(
@@ -36,6 +37,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
         private alertService: AlertService,
         private BlogService: BlogService,
         private userService: UserService,
+        private siblingSharing: SiblingSharing,
         private http: Http,
         private titleService: Title,
         private Meta:Meta 
@@ -45,23 +47,31 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             let _id = params['_id'];
+            let mofo = params['title'];
             this.getBlogDetails(_id);
             this.loadAllComments(_id);
         });
         this.titleService.setTitle( 'Blog Detail, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' );
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
     }
 
-    /*ngOnChanges() {  // Not Today
-        EmitterService.get(this.commentslisting).subscribe(data => console.log(data));
-    }*/
+    ngDoCheck(){
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    }
+
+    isUserLogged(){
+        if(!this.currentUser){
+            console.log('Chutiya Sala!');
+        }
+    }
 
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
 
     postComment(_id){
-        this.BlogService.postComment(this.cmmntfield, _id )
+        this.BlogService.postComment(this.cmmntfield, _id, this.currentUser )
         .subscribe(
             data => {
                 let last_comment = data.comments[data.comments.length - 1];
@@ -89,7 +99,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     }
 
     postReply(_id){
-        this.BlogService.postReply(this.cmmntfield, _id )
+        this.BlogService.postReply(this.cmmntfield, _id, this.currentUser )
         .subscribe(
             data => {
                  let parentcomment = data.comments.filter( x => x._id === _id);
@@ -101,8 +111,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
                      }
                 }
                 this.cmmntfield.poscommentrep= ' '
-                // Emit edit event
-                // EmitterService.get(_id).emit(data);
             },
             error => {
                 this.alertService.error(error);
@@ -118,6 +126,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
             },
             error => {
                 console.log(error);
+                this.router.navigate(['/blog']);
             });
     }
 

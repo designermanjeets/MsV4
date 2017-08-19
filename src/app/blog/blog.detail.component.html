@@ -21,7 +21,7 @@
             <form name="form" (ngSubmit)="f.form.valid && postComment(blogs._id)" #f="ngForm" novalidate>
 				<div class="form-group" [ngClass]="{ 'has-danger': f.submitted && !poscomment.valid }">
 					<label for="exampleTextarea">Post your comments</label>
-					<textarea class="form-control" id="exampleTextarea" aria-describedby="helptextarea" rows="3" placeholder="Post your comments" name="poscomment" [(ngModel)]="cmmntfield.poscomment" #poscomment="ngModel" required></textarea>
+					<textarea class="form-control" id="exampleTextarea" aria-describedby="helptextarea" rows="3" placeholder="Post your comments" name="poscomment" [(ngModel)]="cmmntfield.poscomment" #poscomment="ngModel" (click)="isUserLogged()" required></textarea>
 					<div *ngIf="f.submitted && !poscomment.valid" class="help-block form-control-feedback">Should not be empty.</div>
 					<small id="helptextarea" class="form-text text-muted">We'll never share your details with anyone else.</small>
 				</div>

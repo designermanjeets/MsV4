@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, EventEmitter, Output, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppRoutingModule, routedComponents } from '../app-routing.module';
 import { AlertService, AuthenticationService, UserService, BlogService } from '../_services/index';
+import { SiblingSharing } from '../shared/emitter.service';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { Title, Meta }     from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 declare var $ :any;
 
 @Component({
@@ -13,12 +14,13 @@ declare var $ :any;
     styleUrls: ['./blog.component.css']
 })
 
-export class BlogComponent implements OnInit { 
-    blog:any = {};
+export class BlogComponent implements OnInit {
+
+    model: any = {};
+    blog:any = {};  
     loading = false;
     isPosting:any;
-    postListings:any;
-    isPostingForm:any;
+    postListings; isPostingForm; currentUser; isUserLogin :any;
     bloglisting: any = [];
     cmmntfield:any = {};
     commentslisting: any = [];
@@ -29,15 +31,21 @@ export class BlogComponent implements OnInit {
         private alertService: AlertService,
         private BlogService: BlogService,
         private userService: UserService,
+        private authenticationService: AuthenticationService,
         private http: Http,
         private titleService: Title,
-        private Meta:Meta         
+        private Meta:Meta,   
+        private siblingSharing: SiblingSharing
         ){}
     
     ngOnInit() {
         this.loadAllBlogPosts();
         this.titleService.setTitle( 'Blog, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' );
         this.Meta.updateTag({ name: 'og:title', content: 'Blog, MsCreativePixel, AngularJS, Angular2/4, ReactJS, JavaScript' });
+    }
+
+    ngDoCheck(){
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     }
 
     public options: Object = {
@@ -51,9 +59,16 @@ export class BlogComponent implements OnInit {
         videoUploadURL: 'http://mscreativepixel.com/dist/assets'
     };
 
+    createNewPost(){
+        if(this.currentUser){
+            this.isPostingForm = true
+        } else {
+            this.siblingSharing.changeUser(this.isUserLogin = true);
+        }
+    }
 
     postSubmit(){
-        this.BlogService.postSubmit(this.blog)
+        this.BlogService.postSubmit(this.blog, this.currentUser)
         .subscribe(
             data => {
                 this.postListings = true;
@@ -81,8 +96,8 @@ export class BlogComponent implements OnInit {
             });
     }
 
-    blogDetail(_id:number){
-        this.router.navigate(['/blogdetail', _id]);
+    blogDetail(blogs){
+        this.router.navigate(['/blogdetail', blogs._id ,{ title: blogs.postitle}]);
     }
 
 

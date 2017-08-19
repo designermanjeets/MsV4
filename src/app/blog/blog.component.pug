@@ -3,7 +3,7 @@ section.container.mt-3.pt-3
         .col-lg-12
             h1 Happy Blogging
         .col-lg-12.mt-3.pt-3([hidden]="isPosting")
-            button.btn.btn-primary(type="button" '(click)'="isPostingForm=true") Create Post
+            button.btn.btn-primary(type="button" '(click)'="createNewPost()") Create Post
     .row.mt-3.pt-3([hidden]="!isPostingForm")
         .col-lg-12
             form( name="form" '(ngSubmit)'="postSubmit()" #f="ngForm" novalidate)
@@ -32,9 +32,9 @@ section.container.mt-3.pt-3
             h4.card-title
                 |
                 |
-                a(href="javascript://(void)", (click)="blogDetail(blogs._id)") {{blogs.postitle}}
+                a(href="javascript://(void)", (click)="blogDetail(blogs)") {{blogs.postitle}}
             p.card-text([innerHTML]="blogs.article | limitTo :1000 | sanitizeHtml")
             |
             |
-            a.btn.btn-primary(href="javascript://(void)") Read More...
+            a.btn.btn-primary(href="javascript://(void)", (click)="blogDetail(blogs)") Read More...
     //./Blog Posts

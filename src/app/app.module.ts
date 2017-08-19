@@ -1,5 +1,5 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, enableProdMode } from '@angular/core';
 
 import { FormsModule }    from '@angular/forms';
 import { HttpModule, Http, XHRBackend, RequestOptions} from '@angular/http';
@@ -25,6 +25,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TruncatePipe }   from './shared/truncate';
 import { WindowRef } from './shared/WindowRef';
 import { SanitizeHtml } from './shared/sanitizer';
+import { SiblingSharing } from './shared/emitter.service';
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 
 // Import Angular plugin for Editor.
@@ -32,6 +33,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 // import { InterceptedHttp } from './shared/mshttp.service'; // Not Today || 20170723
 import { httpFactory } from "./shared/httpFactory";
 
+
+enableProdMode();
 
 @NgModule({
   declarations: [
@@ -67,6 +70,7 @@ import { httpFactory } from "./shared/httpFactory";
     WindowRef,
     SanitizeHtml,
     Title,
+    SiblingSharing,
     {
       provide: Http,
       useFactory: httpFactory,

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable  } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import { Subject } from "rxjs/Subject";
 import { UserService } from '../_services/index';
 
@@ -30,12 +29,12 @@ export class BlogService {
                 this.isDashboard.next(true); 
             }
         }
- 
-    postSubmit(blog) {
+         
+    postSubmit(blog, author) {
 
         let body = { 
             postitle: blog.postitle,
-            author:   this.currentUser.username,
+            author:   author.username,
             article:  blog.article
         };
         
@@ -53,16 +52,16 @@ export class BlogService {
 
         return this.http.post('/thread/getposts', Option).map((response: Response) => {
             return response.json();
-        }).catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+        })//.catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
 
     }
     
 
-    postComment(cmmntfield, _id){
+    postComment(cmmntfield, _id, author){
 
         let body = {
             comment     :   cmmntfield.poscomment,
-            author      :   this.currentUser.username,
+            author      :   author.username,
             parentpost  :   _id
         };
 
@@ -93,11 +92,11 @@ export class BlogService {
     }
 
     // Reply 
-    postReply(cmmntfield, _id): Observable<any> {
+    postReply(cmmntfield, _id, author): Observable<any> {
 
         let body = {
             reply       :   cmmntfield.poscommentrep,
-            author      :   this.currentUser.username,
+            author      :   author.username,
             parentpost  :   _id
         };
         

@@ -1,4 +1,5 @@
-nav.navbar.navbar-toggleable-sm.navbar-light
+doctype html
+nav.navbar.navbar-toggleable-sm.navbar-light( #mainnav, [ngClass]="{'no-boxshadow': noShadow}" )
     .container
         button.navbar-toggler.navbar-toggler-right(type="button", (click)="toggleMenu($event)" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
             |
@@ -37,3 +38,37 @@ footer.bg-purple.text-white.py-3.text-center
         |
         .col-xs-12  &#169; MsCreativePixel.io, 2017.   All Rights Reserved. Privacy Policy
 //Foo
+
+// Modal
+<div class="modal fade" id="loginModal" [ngClass]="{'show': isUserLogin}" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="isUserLogin=false;">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                form(name="form", (ngSubmit)!="f.form.valid && login()", #f="ngForm", novalidate)
+                    .form-group( [ngClass]!="{ 'has-danger': f.submitted && !username.valid }")
+                        label(for="username") Username
+                        input.form-control( type="text", name="username", [(ngModel)]="model.username", #username="ngModel", required )
+                        .help-block.form-control-feedback(*ngIf!="f.submitted && !username.valid") Username is required
+                    .form-group( [ngClass]!="{ 'has-danger': f.submitted && !password.valid }")
+                        label(for="password") Password
+                        input.form-control( type="password", name="password", [(ngModel)]="model.password", #password="ngModel", required )
+                        .help-block.form-control-feedback(*ngIf!="f.submitted && !password.valid") Password is required
+                    .form-group
+                        button.btn.btn-primary( [disabled]="loading" ) Login
+                        |
+                        |
+                        img( *ngIf="loading", src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" )
+                        |
+                        |
+                        a.btn.btn-link( (click)="isUserLogin=false;" ) Close
+            </div>
+        </div>
+    </div>
+</div>
+.modal-backdrop.fade( [ngClass]="{'show': isUserLogin}" )
